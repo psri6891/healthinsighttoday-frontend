@@ -10,7 +10,157 @@
     <link rel="stylesheet" href="assets/css/utilities.css">
     <!-- Custom styles specific to the homepage -->
     <style>
-        /* Styles specific to index.html that aren't common across the site */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3c35b1;
+            --secondary: #38bdf8;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --background: #ffffff;
+            --light-bg: #f8fafc;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-item {
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background-color: var(--light-bg);
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
         .feature-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -55,8 +205,9 @@
             background-color: var(--primary);
             color: white;
             border-radius: 50%;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 1rem;
         }
         
         .testimonials {
@@ -69,19 +220,19 @@
             padding: 2rem;
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
+            background-color: var(--light-bg);
         }
         
-        .testimonial-quote {
+        .testimonial-content {
             font-style: italic;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         
-        .testimonial-name {
-            font-weight: 600;
+        .testimonial-author {
+            font-weight: 700;
         }
         
-        .testimonial-position {
+        .testimonial-role {
             color: var(--text-light);
             font-size: 0.875rem;
         }
@@ -92,100 +243,113 @@
             background-color: var(--light-bg);
         }
         
-        .cta-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .cta-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-        
-        .trust-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background-color: white;
-            border-radius: 2rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        
-        .badge-icon {
-            font-size: 1.25rem;
-        }
-        
         footer {
             background-color: var(--text);
             color: white;
-            padding: 4rem 0 2rem;
+            padding: 3rem 0;
         }
         
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 2rem;
-            margin-bottom: 3rem;
         }
         
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-        
-        .footer-section h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-links {
+        .footer-list {
             list-style: none;
         }
         
-        .footer-links li {
-            margin-bottom: 0.75rem;
+        .footer-list li {
+            margin-bottom: 0.5rem;
         }
         
-        .footer-links a {
-            color: #e2e8f0;
+        .footer-list a {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .footer-list a:hover {
+            color: white;
         }
         
         .footer-bottom {
-            text-align: center;
+            margin-top: 2rem;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
             font-size: 0.875rem;
-            color: #e2e8f0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .trust-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
         }
         
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 100;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
             
             .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .feature-cards, .testimonials, .how-it-works {
-                grid-template-columns: 1fr;
-            }
-            
-            .trust-badges {
                 flex-direction: column;
                 align-items: center;
             }
@@ -204,202 +368,270 @@
                     <li class="nav-item"><a href="terms.html" class="nav-link">Terms</a></li>
                 </ul>
                 <a href="pages/register.html" class="btn">Try for Free</a>
+                <button class="mobile-menu-btn">☰</button>
             </nav>
         </div>
     </header>
-    
+
     <section class="hero">
         <div class="container">
-            <h1 class="hero-title">Understand Your Health Reports in Seconds</h1>
-            <p class="hero-subtitle">HealthInsightToday uses AI to decode your medical reports, provide personalized insights, and help you take control of your health journey.</p>
+            <h1 class="hero-title">Understanding Your Health<br>Made Simple</h1>
+            <p class="hero-subtitle">AI-powered analysis of blood tests that delivers personalized insights, actionable recommendations, and expert guidance for your health journey.</p>
             <div class="hero-buttons">
                 <a href="pages/register.html" class="btn">Try for Free</a>
                 <a href="#how-it-works" class="btn btn-outline">How It Works</a>
             </div>
-            <div class="trust-badges">
-                <div class="badge">
-                    <span class="badge-icon">🔒</span>
-                    <span>HIPAA Compliant</span>
-                </div>
-                <div class="badge">
-                    <span class="badge-icon">🔒</span>
-                    <span>GDPR Compliant</span>
-                </div>
-                <div class="badge">
-                    <span class="badge-icon">🔒</span>
-                    <span>India PDPB Ready</span>
-                </div>
-                <div class="badge">
-                    <span class="badge-icon">🩺</span>
-                    <span>Expert Health Analysis</span>
-                </div>
-                <div class="badge">
-                    <span class="badge-icon">📊</span>
-                    <span>Detailed Reports</span>
-                </div>
+            <div style="margin-top: 2rem;">
+                <span class="trust-badge">HIPAA Compliant</span>
+                <span class="trust-badge">Expert Health Analysis</span>
+                <span class="trust-badge">Detailed Reports</span>
             </div>
         </div>
     </section>
-    
+
     <section class="section" id="features">
         <div class="container">
-            <h2 class="section-title">Features</h2>
+            <h2 class="section-title">Powerful Health Analytics at Your Fingertips</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">Discover the full potential of your health data with our advanced analysis tools and personalized recommendations.</p>
+            
             <div class="feature-cards">
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
-                    <h3>Comprehensive Analysis</h3>
-                    <p>Our AI analyzes all your health parameters, comparing them with medical guidelines and your previous results to provide a complete picture of your health.</p>
+                    <h3>Smart Report Analysis</h3>
+                    <p>Upload your blood test reports and get instant analysis with abnormal results highlighted and explained in simple language.</p>
+                    <ul class="feature-list">
+                        <li>PDF and image upload support</li>
+                        <li>AI-powered data extraction</li>
+                        <li>Clear visual indicators</li>
+                    </ul>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Simplified Reports</h3>
-                    <p>Complex medical jargon translated into easy-to-understand language, with visual indicators that highlight what's normal and what needs attention.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
+                    <div class="feature-icon">📈</div>
                     <h3>Health Tracking</h3>
-                    <p>Track changes in your health parameters over time with intuitive charts and visualizations that make trends easy to identify.</p>
+                    <p>Monitor your health parameters over time with interactive charts and identify trends in your health journey.</p>
+                    <ul class="feature-list">
+                        <li>Historical comparison</li>
+                        <li>Progress visualization</li>
+                        <li>Custom date ranges</li>
+                    </ul>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">📋</div>
-                    <h3>Personalized Recommendations</h3>
-                    <p>Receive tailored lifestyle, dietary, and health recommendations based on your specific health parameters and goals.</p>
+                    <div class="feature-icon">💡</div>
+                    <h3>Health Insights</h3>
+                    <p>Receive expert insights about your health based on your test results, with clear explanations of what they mean.</p>
+                    <ul class="feature-list">
+                        <li>Evidence-based analysis</li>
+                        <li>Medical references included</li>
+                        <li>Confidence indicators</li>
+                    </ul>
                 </div>
+            </div>
+            
+            <div class="feature-cards" style="margin-top: 2rem;">
                 <div class="feature-card">
-                    <div class="feature-icon">👩‍⚕️</div>
-                    <h3>Specialist Connections</h3>
-                    <p>Get matched with healthcare specialists according to your health needs, with the option for virtual consultations.</p>
+                    <div class="feature-icon">🥗</div>
+                    <h3>Personalized Nutrition</h3>
+                    <p>Get customized nutrition plans based on your test results to improve your health metrics naturally.</p>
+                    <ul class="feature-list">
+                        <li>Targeted nutrient recommendations</li>
+                        <li>Food suggestions with benefits</li>
+                        <li>Sample meal plans</li>
+                        <li>Connect with local dietitians</li>
+                        <li>Schedule nutrition consultations</li>
+                    </ul>
+                    <a href="pages/diet.html" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">Find Dietitians Near You</a>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Bank-Level Security</h3>
-                    <p>Your health data is protected with end-to-end encryption and secure storage, meeting all global healthcare privacy standards.</p>
+                    <div class="feature-icon">👨‍⚕️</div>
+                    <h3>Specialist Recommendations</h3>
+                    <p>Receive suggestions for medical specialists based on your test results and health concerns.</p>
+                    <ul class="feature-list">
+                        <li>Doctor matching</li>
+                        <li>Telehealth options</li>
+                        <li>Insurance information</li>
+                        <li>Local specialists network</li>
+                        <li>One-click appointment scheduling</li>
+                    </ul>
+                    <a href="pages/specialists.html" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">Find Specialists Near You</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h3>Shopping & Meal Services</h3>
+                    <p>Find grocery recommendations and meal delivery services that match your nutritional needs.</p>
+                    <ul class="feature-list">
+                        <li>Grocery lists with benefits</li>
+                        <li>Meal delivery comparisons</li>
+                        <li>Health-focused food options</li>
+                    </ul>
+                    <a href="pages/shopping.html" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">View Shopping Recommendations</a>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section class="section" id="how-it-works">
+
+    <section class="section" id="how-it-works" style="background-color: var(--light-bg);">
         <div class="container">
             <h2 class="section-title">How It Works</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">Turn your blood test reports into actionable health insights in just a few simple steps.</p>
+            
             <div class="how-it-works">
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Upload Your Report</h3>
-                    <p>Take a photo of your lab report or upload a PDF from your doctor. Our system works with reports from any lab or hospital.</p>
+                    <p>Take a photo or upload a PDF of your blood test report securely to our platform.</p>
                 </div>
+                
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>AI Analysis</h3>
-                    <p>Our AI reads and interprets your report, analyzing all values against medical standards and your personal health history.</p>
+                    <p>Our AI system extracts and analyzes your test results, identifying abnormalities and patterns.</p>
                 </div>
+                
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3>Get Insights</h3>
-                    <p>Receive a comprehensive breakdown of your health status, complete with personalized recommendations and explanations.</p>
+                    <p>Receive detailed health insights, recommendations, and specialist suggestions based on your results.</p>
                 </div>
+                
                 <div class="step">
                     <div class="step-number">4</div>
                     <h3>Take Action</h3>
-                    <p>Follow your personalized health plan or connect with specialists for further guidance and treatment options.</p>
+                    <p>Follow personalized recommendations, track progress over time, and improve your health outcomes.</p>
                 </div>
             </div>
-            <div class="text-center mt-5">
+            
+            <div style="text-align: center; margin-top: 3rem;">
                 <a href="pages/register.html" class="btn">Get Started Now</a>
             </div>
         </div>
     </section>
-    
-    <section class="section">
+
+    <section class="section" id="testimonials">
         <div class="container">
             <h2 class="section-title">What Our Users Say</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">Join thousands of satisfied users who have improved their health with HealthInsightToday.</p>
+            
             <div class="testimonials">
                 <div class="testimonial">
-                    <p class="testimonial-quote">"HealthInsightToday helped me understand my diabetes risk factors in a way my doctor never explained. I've made simple lifestyle changes and my numbers have improved dramatically."</p>
-                    <div class="testimonial-author">
-                        <p class="testimonial-name">Priya Sharma</p>
-                        <p class="testimonial-position">Software Developer</p>
+                    <p class="testimonial-content">"After years of dealing with high cholesterol, HealthInsightToday helped me understand my blood work and connected me with a great dietitian. My numbers improved within 3 months!"</p>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 3rem; height: 3rem; border-radius: 50%; background-color: var(--primary); color: white; display: flex; justify-content: center; align-items: center; margin-right: 1rem; font-weight: 700;">RS</div>
+                        <div>
+                            <p class="testimonial-author">Rajesh Sharma</p>
+                            <p class="testimonial-role">Software Engineer</p>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="testimonial">
-                    <p class="testimonial-quote">"I've been tracking my thyroid condition for years, but never understood the connections between different lab values. This platform made everything clear and connected me with a specialist who really helped."</p>
-                    <div class="testimonial-author">
-                        <p class="testimonial-name">Rahul Patel</p>
-                        <p class="testimonial-position">Marketing Executive</p>
+                    <p class="testimonial-content">"HealthInsightToday helps me understand my lab reports better than my doctor explained them. The nutrition recommendations were exactly what I needed to address my vitamin deficiencies."</p>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 3rem; height: 3rem; border-radius: 50%; background-color: var(--secondary); color: white; display: flex; justify-content: center; align-items: center; margin-right: 1rem; font-weight: 700;">SJ</div>
+                        <div>
+                            <p class="testimonial-author">Sarah Johnson</p>
+                            <p class="testimonial-role">Marketing Manager</p>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="testimonial">
-                    <p class="testimonial-quote">"As someone with a family history of heart disease, I was always anxious about my health reports. Now I feel empowered with knowledge and specific actions I can take to improve my cardiovascular health."</p>
-                    <div class="testimonial-author">
-                        <p class="testimonial-name">Aisha Khan</p>
-                        <p class="testimonial-position">Teacher</p>
+                    <p class="testimonial-content">"Being able to track my health metrics over time has been incredible. I can clearly see how my lifestyle changes are affecting my blood work, and the specialist recommendations were spot on."</p>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 3rem; height: 3rem; border-radius: 50%; background-color: var(--success); color: white; display: flex; justify-content: center; align-items: center; margin-right: 1rem; font-weight: 700;">TW</div>
+                        <div>
+                            <p class="testimonial-author">Thomas Wilson</p>
+                            <p class="testimonial-role">Fitness Coach</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section class="cta">
+
+    <section class="cta" id="try-free">
         <div class="container">
-            <h2 class="cta-title">Transform Your Health Journey Today</h2>
-            <p class="cta-subtitle">Join thousands of users who have taken control of their health with clear insights and actionable recommendations.</p>
+            <h2>Ready to Transform Your Health Journey?</h2>
+            <p style="max-width: 700px; margin: 0 auto 2rem;">Upload your first report today and discover the insights that can help you make better health decisions.</p>
             <a href="pages/register.html" class="btn">Get Started For Free</a>
         </div>
     </section>
-    
+
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">HealthInsightToday</div>
-                    <p>Empowering individuals with AI-driven health insights, making complex medical information accessible and actionable.</p>
+                <div>
+                    <h3 style="color: white;">HealthInsightToday</h3>
+                    <p>Transforming blood test reports into personalized health insights and actionable recommendations.</p>
                 </div>
-                <div class="footer-section">
-                    <h3>Features</h3>
-                    <ul class="footer-links">
-                        <li><a href="#features">Report Analysis</a></li>
-                        <li><a href="#features">Health Tracking</a></li>
-                        <li><a href="#features">Specialist Connections</a></li>
-                        <li><a href="#features">Personalized Recommendations</a></li>
+                
+                <div>
+                    <h4 style="color: white;">Product</h4>
+                    <ul class="footer-list">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Press</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
+                
+                <div>
+                    <h4 style="color: white;">Company</h4>
+                    <ul class="footer-list">
+                        <li><a href="about.html">About Us</a></li>
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="#">Data Security</a></li>
-                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: white;">Get Started</h4>
+                    <ul class="footer-list">
+                        <li><a href="pages/register.html">Sign Up</a></li>
+                        <li><a href="pages/login.html">Login</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2023 HealthInsightToday. All rights reserved.</p>
+                <p>© 2025 HealthInsightToday. All rights reserved.</p>
             </div>
         </div>
     </footer>
-    
+
     <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
             });
         });
-        
-        // Mobile menu toggle would go here in a real implementation
     </script>
 </body>
 </html>

@@ -1,6 +1,3 @@
-Continuing the diet.html file update:
-
-```html:pages/diet.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,251 +8,6 @@ Continuing the diet.html file update:
     <link rel="stylesheet" href="../assets/css/normalize.css">
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/utilities.css">
-    <!-- Custom styles specific to the diet page -->
-    <style>
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-        
-        .tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-        
-        .tab.active {
-            border-bottom-color: var(--primary);
-            color: var(--primary);
-        }
-        
-        .tab:hover {
-            color: var(--primary);
-        }
-        
-        .meal-plan {
-            margin-bottom: 2rem;
-        }
-        
-        .meal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .meal-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-        }
-        
-        .meal-time {
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-        
-        .meal-card {
-            display: flex;
-            background-color: #ffffff;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-        
-        .meal-image {
-            width: 120px;
-            height: 120px;
-            background-color: var(--light-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .meal-details {
-            flex: 1;
-            padding: 1rem;
-        }
-        
-        .meal-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .meal-description {
-            color: var(--text);
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .meal-benefits {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .meal-benefit {
-            padding: 0.25rem 0.5rem;
-            background-color: var(--light-bg);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            color: var(--text);
-        }
-        
-        .meal-nutrition {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-        
-        .food-restrictions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .food-restriction {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .restriction-checkbox {
-            width: 18px;
-            height: 18px;
-        }
-        
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        .section-subtitle {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-        }
-        
-        .health-context {
-            background-color: var(--light-bg);
-            border-radius: 0.5rem;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .health-factors {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        
-        .health-factor {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            background-color: #ffffff;
-            border-radius: 0.375rem;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-        
-        .factor-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(79, 70, 229, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .factor-details {
-            flex: 1;
-        }
-        
-        .factor-title {
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .factor-value {
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-        
-        .grocery-list {
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-        
-        .grocery-header {
-            padding: 1rem;
-            background-color: var(--light-bg);
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .grocery-items {
-            padding: 1rem;
-        }
-        
-        .grocery-item {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .grocery-item:last-child {
-            border-bottom: none;
-        }
-        
-        .grocery-checkbox {
-            margin-right: 1rem;
-        }
-        
-        .grocery-name {
-            flex: 1;
-        }
-        
-        .grocery-amount {
-            color: var(--text-light);
-            font-size: 0.875rem;
-            margin-right: 1rem;
-        }
-        
-        .grocery-category {
-            background-color: var(--light-bg);
-            padding: 0.25rem 0.5rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-        }
-        
-        @media (max-width: 768px) {
-            .meal-card {
-                flex-direction: column;
-            }
-            
-            .meal-image {
-                width: 100%;
-                height: 180px;
-            }
-            
-            .health-factors {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -339,444 +91,353 @@ Continuing the diet.html file update:
     
     <main class="main-content">
         <div class="dashboard-header">
-            <h1 class="page-title">Personalized Diet Plan</h1>
-            <p class="subtitle">Dietary recommendations based on your health profile</p>
-        </div>
-        
-        <div class="health-context">
-            <h2 class="section-title">Your Health Context</h2>
-            <p class="section-subtitle">Your dietary recommendations are based on these health factors:</p>
-            
-            <div class="health-factors">
-                <div class="health-factor">
-                    <div class="factor-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.42 4.58C19.76 3.91 18.94 3.41 18.05 3.11C17.15 2.81 16.19 2.72 15.26 2.86C14.32 3 13.44 3.35 12.65 3.91C11.87 4.46 11.22 5.19 10.75 6.05C10.28 6.9 10 7.85 10 8.82C10 9.79 10.28 10.74 10.75 11.6C11.22 12.45 11.87 13.18 12.65 13.74C13.44 14.3 14.32 14.65 15.26 14.79C16.19 14.93 17.15 14.84 18.05 14.54C18.94 14.24 19.76 13.74 20.42 13.07C21.09 12.41 21.59 11.58 21.89 10.69C22.19 9.8 22.28 8.84 22.14 7.9C22 6.97 21.65 6.08 21.09 5.3C20.53 4.52 19.8 3.87 18.95 3.4L19.61 2.41C20.13 2.76 20.62 3.17 21.04 3.66C21.77 4.49 22.3 5.47 22.58 6.53C22.87 7.59 22.91 8.7 22.69 9.78C22.48 10.85 22.02 11.86 21.36 12.72C20.7 13.59 19.85 14.29 18.88 14.77C17.9 15.24 16.83 15.48 15.76 15.46C14.68 15.44 13.62 15.16 12.67 14.65C11.71 14.14 10.89 13.41 10.26 12.52C9.64 11.63 9.23 10.6 9.08 9.52C8.92 8.44 9.02 7.34 9.36 6.31C9.71 5.29 10.29 4.36 11.06 3.61C11.84 2.85 12.77 2.29 13.8 1.96L14.12 3.03C13.26 3.31 12.48 3.78 11.84 4.41Z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="factor-details">
-                        <div class="factor-title">Cholesterol</div>
-                        <div class="factor-value">LDL: 128 mg/dL (High)</div>
-                    </div>
-                </div>
-                
-                <div class="health-factor">
-                    <div class="factor-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z" fill="#f59e0b"/>
-                        </svg>
-                    </div>
-                    <div class="factor-details">
-                        <div class="factor-title">Vitamin D</div>
-                        <div class="factor-value">28 ng/mL (Low)</div>
-                    </div>
-                </div>
-                
-                <div class="health-factor">
-                    <div class="factor-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#22c55e"/>
-                        </svg>
-                    </div>
-                    <div class="factor-details">
-                        <div class="factor-title">Blood Pressure</div>
-                        <div class="factor-value">118/75 mmHg (Normal)</div>
-                    </div>
-                </div>
-                
-                <div class="health-factor">
-                    <div class="factor-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z" fill="#22c55e"/>
-                        </svg>
-                    </div>
-                    <div class="factor-details">
-                        <div class="factor-title">Physical Activity</div>
-                        <div class="factor-value">20 min/day (Moderate)</div>
-                    </div>
-                </div>
-            </div>
+            <h1 class="page-title">Diet & Nutrition</h1>
+            <p class="subtitle">Personalized nutrition recommendations based on your health profile</p>
         </div>
         
         <div class="card">
             <div class="tabs">
-                <div class="tab active">Meal Plan</div>
-                <div class="tab">Recommended Foods</div>
-                <div class="tab">Foods to Avoid</div>
+                <div class="tab active">Daily Meal Plan</div>
                 <div class="tab">Nutritional Goals</div>
+                <div class="tab">Find Nutritionists</div>
             </div>
             
-            <div class="food-restrictions">
-                <div class="food-restriction">
-                    <input type="checkbox" id="vegetarian" class="restriction-checkbox">
-                    <label for="vegetarian">Vegetarian</label>
-                </div>
-                <div class="food-restriction">
-                    <input type="checkbox" id="vegan" class="restriction-checkbox">
-                    <label for="vegan">Vegan</label>
-                </div>
-                <div class="food-restriction">
-                    <input type="checkbox" id="gluten-free" class="restriction-checkbox">
-                    <label for="gluten-free">Gluten-Free</label>
-                </div>
-                <div class="food-restriction">
-                    <input type="checkbox" id="dairy-free" class="restriction-checkbox">
-                    <label for="dairy-free">Dairy-Free</label>
-                </div>
-                <div class="food-restriction">
-                    <input type="checkbox" id="nut-free" class="restriction-checkbox">
-                    <label for="nut-free">Nut-Free</label>
-                </div>
-                <button class="btn btn-outline ml-auto">Update Preferences</button>
-            </div>
-            
-            <div class="meal-plan">
-                <div class="meal-header">
-                    <h3 class="meal-title">Breakfast</h3>
-                    <span class="meal-time">7:00 - 8:30 AM</span>
-                </div>
-                
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Overnight Oats with Berries and Flaxseed</h4>
-                        <p class="meal-description">Steel-cut oats soaked overnight with almond milk, topped with mixed berries, ground flaxseed, and a drizzle of honey.</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">Lowers Cholesterol</span>
-                            <span class="meal-benefit">Heart Healthy</span>
-                            <span class="meal-benefit">High Fiber</span>
+            <div class="tab-content">
+                <div class="health-context">
+                    <h2 class="section-title">Your Health Context</h2>
+                    <p style="margin-bottom: 1.5rem;">Recommendations based on your recent lab results from March 15, 2023:</p>
+                    
+                    <div class="health-factors">
+                        <div class="health-factor">
+                            <div class="factor-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.42 4.58C19.76 3.91 18.94 3.41 18.05 3.11C17.15 2.81 16.19 2.72 15.26 2.86C14.32 3 13.44 3.35 12.65 3.91C11.87 4.46 11.22 5.19 10.75 6.05C10.28 6.9 10 7.85 10 8.82C10 9.79 10.28 10.74 10.75 11.6C11.22 12.45 11.87 13.18 12.65 13.74C13.44 14.3 14.32 14.65 15.26 14.79C16.19 14.93 17.15 14.84 18.05 14.54C18.94 14.24 19.76 13.74 20.42 13.07C21.09 12.41 21.59 11.58 21.89 10.69C22.19 9.8 22.28 8.84 22.14 7.9C22 6.97 21.65 6.08 21.09 5.3C20.53 4.52 19.8 3.87 18.95 3.4L19.61 2.41C20.13 2.76 20.62 3.17 21.04 3.66C21.77 4.49 22.3 5.47 22.58 6.53C22.87 7.59 22.91 8.7 22.69 9.78C22.48 10.85 22.02 11.86 21.36 12.72C20.7 13.59 19.85 14.29 18.88 14.77C17.9 15.24 16.83 15.48 15.76 15.46C14.68 15.44 13.62 15.16 12.67 14.65C11.71 14.14 10.89 13.41 10.26 12.52C9.64 11.63 9.23 10.6 9.08 9.52C8.92 8.44 9.02 7.34 9.36 6.31C9.71 5.29 10.29 4.36 11.06 3.61C11.84 2.85 12.77 2.29 13.8 1.96L14.12 3.03C13.26 3.31 12.48 3.78 11.84 4.41Z" fill="#4f46e5"/>
+                                </svg>
+                            </div>
+                            <div class="factor-details">
+                                <div class="factor-title">Vitamin D</div>
+                                <div class="factor-value">21 ng/mL (Low)</div>
+                            </div>
                         </div>
-                        <div class="meal-nutrition">
-                            <span>380 calories</span>
-                            <span>12g protein</span>
-                            <span>8g fat</span>
-                            <span>62g carbs</span>
+                        
+                        <div class="health-factor">
+                            <div class="factor-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="#ef4444"/>
+                                </svg>
+                            </div>
+                            <div class="factor-details">
+                                <div class="factor-title">LDL Cholesterol</div>
+                                <div class="factor-value">142 mg/dL (High)</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Greek Yogurt Parfait with Nuts and Seeds</h4>
-                        <p class="meal-description">Plain Greek yogurt layered with walnuts, chia seeds, and fresh berries for a protein-rich, heart-healthy breakfast.</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">High Protein</span>
-                            <span class="meal-benefit">Vitamin D</span>
-                            <span class="meal-benefit">Omega-3 Fatty Acids</span>
+                        
+                        <div class="health-factor">
+                            <div class="factor-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="#ef4444"/>
+                                </svg>
+                            </div>
+                            <div class="factor-details">
+                                <div class="factor-title">Triglycerides</div>
+                                <div class="factor-value">170 mg/dL (High)</div>
+                            </div>
                         </div>
-                        <div class="meal-nutrition">
-                            <span>320 calories</span>
-                            <span>22g protein</span>
-                            <span>16g fat</span>
-                            <span>24g carbs</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="meal-plan">
-                <div class="meal-header">
-                    <h3 class="meal-title">Lunch</h3>
-                    <span class="meal-time">12:00 - 1:30 PM</span>
-                </div>
-                
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 19h20v2H2v-2zm9-11h2v8h-2V8zM5 8h2v8H5V8zm12 0h2v8h-2V8zM2 3v2h20V3H2z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Mediterranean Quinoa Bowl</h4>
-                        <p class="meal-description">Protein-rich quinoa topped with chickpeas, cucumber, cherry tomatoes, olives, and feta cheese, drizzled with olive oil and lemon.</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">Heart Healthy</span>
-                            <span class="meal-benefit">Lowers Cholesterol</span>
-                            <span class="meal-benefit">Rich in Fiber</span>
-                        </div>
-                        <div class="meal-nutrition">
-                            <span>410 calories</span>
-                            <span>14g protein</span>
-                            <span>18g fat</span>
-                            <span>52g carbs</span>
+                        
+                        <div class="health-factor">
+                            <div class="factor-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="#f59e0b"/>
+                                </svg>
+                            </div>
+                            <div class="factor-details">
+                                <div class="factor-title">Iron</div>
+                                <div class="factor-value">55 µg/dL (Borderline)</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Salmon Avocado Wrap</h4>
-                        <p class="meal-description">Grilled salmon with avocado, mixed greens, and a light yogurt dressing in a whole grain wrap. Rich in omega-3 fatty acids.</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">Omega-3 Rich</span>
-                            <span class="meal-benefit">Vitamin D</span>
-                            <span class="meal-benefit">Healthy Fats</span>
+                <div class="food-restrictions-container">
+                    <h2 class="section-title">Your Food Restrictions</h2>
+                    <div class="food-restrictions">
+                        <div class="food-restriction">
+                            <input type="checkbox" class="restriction-checkbox" id="restriction1" checked>
+                            <label for="restriction1">Vegetarian</label>
                         </div>
-                        <div class="meal-nutrition">
-                            <span>440 calories</span>
-                            <span>28g protein</span>
-                            <span>22g fat</span>
-                            <span>34g carbs</span>
+                        <div class="food-restriction">
+                            <input type="checkbox" class="restriction-checkbox" id="restriction2">
+                            <label for="restriction2">Vegan</label>
+                        </div>
+                        <div class="food-restriction">
+                            <input type="checkbox" class="restriction-checkbox" id="restriction3">
+                            <label for="restriction3">Gluten-Free</label>
+                        </div>
+                        <div class="food-restriction">
+                            <input type="checkbox" class="restriction-checkbox" id="restriction4">
+                            <label for="restriction4">Dairy-Free</label>
+                        </div>
+                        <div class="food-restriction">
+                            <input type="checkbox" class="restriction-checkbox" id="restriction5">
+                            <label for="restriction5">Nut-Free</label>
+                        </div>
+                        <div class="food-restriction">
+                            <input type="checkbox" class="restriction-checkbox" id="restriction6">
+                            <label for="restriction6">Low-Sodium</label>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <div class="meal-plan">
-                <div class="meal-header">
-                    <h3 class="meal-title">Dinner</h3>
-                    <span class="meal-time">6:30 - 8:00 PM</span>
+                    <button class="btn btn-outline">Update Preferences</button>
                 </div>
                 
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z" fill="#4f46e5"/>
-                        </svg>
+                <div class="meal-plans-container">
+                    <h2 class="section-title" style="margin-top: 2rem;">Your Daily Meal Plan</h2>
+                    <p class="section-subtitle">Personalized meal suggestions targeting your health needs</p>
+                    
+                    <div class="meal-plan">
+                        <div class="meal-header">
+                            <div class="meal-title">Breakfast</div>
+                            <div class="meal-time">7:00 AM - 9:00 AM</div>
+                        </div>
+                        
+                        <div class="meal-card">
+                            <div class="meal-image">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" fill="#4f46e5"/>
+                                </svg>
+                            </div>
+                            <div class="meal-details">
+                                <div class="meal-name">Spinach and Mushroom Omelette with Fortified Cereals</div>
+                                <div class="meal-description">Start your day with iron-rich spinach, vitamin D enriched mushrooms, and a side of fortified cereals to address multiple nutritional needs.</div>
+                                <div class="meal-benefits">
+                                    <span class="meal-benefit">Vitamin D Rich</span>
+                                    <span class="meal-benefit">Iron Rich</span>
+                                    <span class="meal-benefit">Low Cholesterol</span>
+                                </div>
+                                <div class="meal-nutrition">
+                                    <span>Calories: 320</span>
+                                    <span>Protein: 18g</span>
+                                    <span>Carbs: 42g</span>
+                                    <span>Fat: 14g</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Baked Cod with Roasted Vegetables</h4>
-                        <p class="meal-description">Lemon and herb baked cod served with a colorful medley of roasted vegetables (bell peppers, zucchini, and sweet potatoes).</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">Lean Protein</span>
-                            <span class="meal-benefit">Vitamin Rich</span>
-                            <span class="meal-benefit">Low Calorie</span>
+                    
+                    <div class="meal-plan">
+                        <div class="meal-header">
+                            <div class="meal-title">Lunch</div>
+                            <div class="meal-time">12:00 PM - 2:00 PM</div>
                         </div>
-                        <div class="meal-nutrition">
-                            <span>320 calories</span>
-                            <span>32g protein</span>
-                            <span>8g fat</span>
-                            <span>28g carbs</span>
+                        
+                        <div class="meal-card">
+                            <div class="meal-image">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 19h20v2H2zM20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" fill="#4f46e5"/>
+                                </svg>
+                            </div>
+                            <div class="meal-details">
+                                <div class="meal-name">Mediterranean Quinoa Bowl with Salmon</div>
+                                <div class="meal-description">A nutrient-dense bowl with olive oil-dressed quinoa, fatty fish rich in vitamin D, and abundant vegetables to support heart health.</div>
+                                <div class="meal-benefits">
+                                    <span class="meal-benefit">Omega-3 Rich</span>
+                                    <span class="meal-benefit">Heart Healthy</span>
+                                    <span class="meal-benefit">Vitamin D Source</span>
+                                </div>
+                                <div class="meal-nutrition">
+                                    <span>Calories: 480</span>
+                                    <span>Protein: 28g</span>
+                                    <span>Carbs: 53g</span>
+                                    <span>Fat: 18g</span>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    
+                    <div class="meal-plan">
+                        <div class="meal-header">
+                            <div class="meal-title">Dinner</div>
+                            <div class="meal-time">6:00 PM - 8:00 PM</div>
+                        </div>
+                        
+                        <div class="meal-card">
+                            <div class="meal-image">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z" fill="#4f46e5"/>
+                                </svg>
+                            </div>
+                            <div class="meal-details">
+                                <div class="meal-name">Lentil and Vegetable Stew with Whole Grain Bread</div>
+                                <div class="meal-description">A hearty plant-based dinner rich in iron and fiber to help lower cholesterol levels. The whole grain bread provides additional nutrients and satisfaction.</div>
+                                <div class="meal-benefits">
+                                    <span class="meal-benefit">Iron Rich</span>
+                                    <span class="meal-benefit">Cholesterol Lowering</span>
+                                    <span class="meal-benefit">High Fiber</span>
+                                </div>
+                                <div class="meal-nutrition">
+                                    <span>Calories: 390</span>
+                                    <span>Protein: 19g</span>
+                                    <span>Carbs: 62g</span>
+                                    <span>Fat: 8g</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="meal-plan">
+                        <div class="meal-header">
+                            <div class="meal-title">Snacks</div>
+                            <div class="meal-time">Throughout the day</div>
+                        </div>
+                        
+                        <div class="meal-card">
+                            <div class="meal-image">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm-7.75 10.51l1.41-1.41L7.33 13 5.92 14.41l4.33 3.1zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="#4f46e5"/>
+                                </svg>
+                            </div>
+                            <div class="meal-details">
+                                <div class="meal-name">Greek Yogurt with Walnuts and Vitamin D Fortified Orange Juice</div>
+                                <div class="meal-description">A balanced snack offering protein, healthy fats, and vitamin D. Perfect for mid-morning or afternoon energy boosts.</div>
+                                <div class="meal-benefits">
+                                    <span class="meal-benefit">Vitamin D Source</span>
+                                    <span class="meal-benefit">Heart Healthy</span>
+                                    <span class="meal-benefit">Protein Rich</span>
+                                </div>
+                                <div class="meal-nutrition">
+                                    <span>Calories: 220</span>
+                                    <span>Protein: 12g</span>
+                                    <span>Carbs: 18g</span>
+                                    <span>Fat: 11g</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;" class="text-center">
+                        <button class="btn btn-primary">Export Full Meal Plan</button>
+                        <button class="btn btn-outline ml-2">Generate Shopping List</button>
                     </div>
                 </div>
+            </div>
+            
+            <div class="tab-content" style="display: none;">
+                <h2 class="section-title">Your Nutritional Goals</h2>
+                <p class="section-subtitle">Based on your health profile, we recommend focusing on these key nutrients</p>
                 
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Lentil and Vegetable Curry</h4>
-                        <p class="meal-description">Protein-packed lentil curry with mixed vegetables, warming spices, and coconut milk. Served with a small portion of brown rice.</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">Plant Protein</span>
-                            <span class="meal-benefit">Fiber Rich</span>
-                            <span class="meal-benefit">Anti-inflammatory</span>
-                        </div>
-                        <div class="meal-nutrition">
-                            <span>380 calories</span>
-                            <span>16g protein</span>
-                            <span>10g fat</span>
-                            <span>56g carbs</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Nutrition Goals content would go here -->
             </div>
             
-            <div class="meal-plan">
-                <div class="meal-header">
-                    <h3 class="meal-title">Snacks</h3>
-                    <span class="meal-time">Between Meals</span>
-                </div>
+            <div class="tab-content" style="display: none;">
+                <h2 class="section-title">Find a Nutritionist</h2>
+                <p class="section-subtitle">Connect with qualified nutritionists that specialize in your health needs</p>
                 
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Mixed Nuts and Seeds</h4>
-                        <p class="meal-description">A handful of unsalted mixed nuts (almonds, walnuts) and seeds (sunflower, pumpkin) for a heart-healthy snack rich in omega-3s.</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">Heart Healthy</span>
-                            <span class="meal-benefit">Vitamin E</span>
-                            <span class="meal-benefit">Healthy Fats</span>
+                <div class="nutritionist-grid">
+                    <div class="nutritionist-card">
+                        <div class="nutritionist-header">
+                            <div class="nutritionist-avatar">DR</div>
+                            <div class="nutritionist-info">
+                                <div class="nutritionist-name">Dr. Rachel Sharma</div>
+                                <div class="nutritionist-credentials">PhD in Nutrition, Registered Dietitian</div>
+                            </div>
                         </div>
-                        <div class="meal-nutrition">
-                            <span>180 calories</span>
-                            <span>6g protein</span>
-                            <span>16g fat</span>
-                            <span>6g carbs</span>
+                        <div class="nutritionist-content">
+                            <div class="nutritionist-specialties">
+                                <span class="nutritionist-specialty">Heart Health</span>
+                                <span class="nutritionist-specialty">Cholesterol Management</span>
+                                <span class="nutritionist-specialty">Vegetarian Nutrition</span>
+                            </div>
+                            <div class="nutritionist-availability">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
+                                </svg>
+                                <span>Available for appointments</span>
+                            </div>
+                            <div class="nutritionist-actions">
+                                <button class="btn btn-primary">Schedule Consult</button>
+                                <button class="btn btn-outline">View Profile</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="meal-card">
-                    <div class="meal-image">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.12 4l1.83 2H20v10H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z" fill="#4f46e5"/>
-                        </svg>
-                    </div>
-                    <div class="meal-details">
-                        <h4 class="meal-name">Greek Yogurt with Berries</h4>
-                        <p class="meal-description">Plain Greek yogurt topped with mixed berries and a light drizzle of honey for a protein-rich, satisfying snack.</p>
-                        <div class="meal-benefits">
-                            <span class="meal-benefit">Protein Rich</span>
-                            <span class="meal-benefit">Probiotics</span>
-                            <span class="meal-benefit">Antioxidants</span>
+                    
+                    <div class="nutritionist-card">
+                        <div class="nutritionist-header">
+                            <div class="nutritionist-avatar">MT</div>
+                            <div class="nutritionist-info">
+                                <div class="nutritionist-name">Mark Thompson</div>
+                                <div class="nutritionist-credentials">MS in Clinical Nutrition, Sports Nutritionist</div>
+                            </div>
                         </div>
-                        <div class="meal-nutrition">
-                            <span>150 calories</span>
-                            <span>15g protein</span>
-                            <span>2g fat</span>
-                            <span>18g carbs</span>
+                        <div class="nutritionist-content">
+                            <div class="nutritionist-specialties">
+                                <span class="nutritionist-specialty">Vitamin Deficiencies</span>
+                                <span class="nutritionist-specialty">Sports Nutrition</span>
+                                <span class="nutritionist-specialty">Whole Food Diets</span>
+                            </div>
+                            <div class="nutritionist-availability">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
+                                </svg>
+                                <span>Available for appointments</span>
+                            </div>
+                            <div class="nutritionist-actions">
+                                <button class="btn btn-primary">Schedule Consult</button>
+                                <button class="btn btn-outline">View Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="nutritionist-card">
+                        <div class="nutritionist-header">
+                            <div class="nutritionist-avatar">JC</div>
+                            <div class="nutritionist-info">
+                                <div class="nutritionist-name">Jennifer Chen</div>
+                                <div class="nutritionist-credentials">RD, Certified Diabetes Educator</div>
+                            </div>
+                        </div>
+                        <div class="nutritionist-content">
+                            <div class="nutritionist-specialties">
+                                <span class="nutritionist-specialty">Diabetes Management</span>
+                                <span class="nutritionist-specialty">Heart Health</span>
+                                <span class="nutritionist-specialty">Weight Management</span>
+                            </div>
+                            <div class="nutritionist-availability">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#f59e0b"/>
+                                </svg>
+                                <span>Limited availability</span>
+                            </div>
+                            <div class="nutritionist-actions">
+                                <button class="btn btn-primary">Join Waitlist</button>
+                                <button class="btn btn-outline">View Profile</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="card">
-            <h2 class="section-title">Grocery List for Your Plan</h2>
-            <p class="section-subtitle">Based on your meal plan and health goals, here's a recommended shopping list:</p>
-            
-            <div class="grocery-list">
-                <div class="grocery-header">
-                    <span>Heart Healthy Foods</span>
-                    <span>To help lower cholesterol</span>
-                </div>
-                <div class="grocery-items">
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Oats (steel cut or rolled)</div>
-                        <div class="grocery-amount">1 package</div>
-                        <div class="grocery-category">Grains</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Flaxseeds (ground)</div>
-                        <div class="grocery-amount">1 package</div>
-                        <div class="grocery-category">Seeds</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Walnuts</div>
-                        <div class="grocery-amount">1 bag</div>
-                        <div class="grocery-category">Nuts</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Olive oil (extra virgin)</div>
-                        <div class="grocery-amount">1 bottle</div>
-                        <div class="grocery-category">Oils</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Avocados</div>
-                        <div class="grocery-amount">3</div>
-                        <div class="grocery-category">Produce</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grocery-list">
-                <div class="grocery-header">
-                    <span>Vitamin D Rich Foods</span>
-                    <span>To address your Vitamin D deficiency</span>
-                </div>
-                <div class="grocery-items">
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Salmon (wild caught)</div>
-                        <div class="grocery-amount">1 lb</div>
-                        <div class="grocery-category">Seafood</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Eggs (omega-3 enriched)</div>
-                        <div class="grocery-amount">1 dozen</div>
-                        <div class="grocery-category">Dairy</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Mushrooms</div>
-                        <div class="grocery-amount">8 oz</div>
-                        <div class="grocery-category">Produce</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Fortified plant milk</div>
-                        <div class="grocery-amount">1 carton</div>
-                        <div class="grocery-category">Dairy Alternative</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grocery-list">
-                <div class="grocery-header">
-                    <span>Other Essential Items</span>
-                    <span>For your complete meal plan</span>
-                </div>
-                <div class="grocery-items">
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Greek yogurt (plain)</div>
-                        <div class="grocery-amount">32 oz</div>
-                        <div class="grocery-category">Dairy</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Mixed berries (fresh or frozen)</div>
-                        <div class="grocery-amount">2 packages</div>
-                        <div class="grocery-category">Produce</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Quinoa</div>
-                        <div class="grocery-amount">1 package</div>
-                        <div class="grocery-category">Grains</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Lentils</div>
-                        <div class="grocery-amount">1 package</div>
-                        <div class="grocery-category">Legumes</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Cod fillets</div>
-                        <div class="grocery-amount">1 lb</div>
-                        <div class="grocery-category">Seafood</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Brown rice</div>
-                        <div class="grocery-amount">1 package</div>
-                        <div class="grocery-category">Grains</div>
-                    </div>
-                    <div class="grocery-item">
-                        <input type="checkbox" class="grocery-checkbox">
-                        <div class="grocery-name">Whole grain wraps</div>
-                        <div class="grocery-amount">1 package</div>
-                        <div class="grocery-category">Bread</div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="btn btn-primary mt-4">Download Shopping List</button>
         </div>
     </main>
-
+    
     <script>
-        // This would be replaced with real data handling and user preferences in production
-        console.log("Diet page loaded with personalized recommendations");
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show correct content
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+                tabContents[index].style.display = 'block';
+            });
+        });
+        
+        // Initialize first tab as active
+        tabContents[0].style.display = 'block';
     </script>
 </body>
 </html>
