@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Specialists - HealthInsightToday</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3c35b1;
+            --secondary: #38bdf8;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --background: #ffffff;
+            --light-bg: #f8fafc;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            background-color: #ffffff;
+            padding: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .notifications {
+            position: relative;
+        }
+        
+        .notifications-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--error);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            height: calc(100vh - 64px);
+            position: fixed;
+            top: 64px;
+            left: 0;
+            box-shadow: 1px 0 3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem 0;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .sidebar-menu a:hover {
+            background-color: var(--light-bg);
+        }
+        
+        .sidebar-menu a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+        
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--text-light);
+        }
+        
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-filters {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+        
+        .specialists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .specialist-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        
+        .specialist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .specialist-header {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .specialist-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .specialist-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .specialist-title {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .specialist-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--warning);
+        }
+        
+        .specialist-body {
+            padding: 1.5rem;
+        }
+        
+        .specialist-info {
+            margin-bottom: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .info-icon {
+            width: 18px;
+            height: 18px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .specialist-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .specialist-footer {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .map-container {
+            height: 300px;
+            background-color: var(--light-bg);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .specialists-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .search-filters {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .sidebar-menu a span {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+            
+            .specialists-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-filters {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="../index.html" class="brand">HealthInsightToday</a>
+            <div class="user-menu">
+                <div class="notifications">
+                    <span class="notifications-count">3</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.36 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.63 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">JS</div>
+                    <span>John Smith</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor"/>
+                    </svg>
+                    <span>Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="specialists.html" class="active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Specialists</span>
+                </a>
+            </li>
+            <li>
+                <a href="insights.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z" fill="currentColor"/>
+                    </svg>
+                    <span>Insights</span>
+                </a>
+            </li>
+            <li>
+                <a href="diet.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 9H9V2H7V9H5V2H3V9C3 11.12 4.66 12.84 6.75 12.97V22H9.25V12.97C11.34 12.84 13 11.12 13 9V2H11V9ZM16 6V14H18.5V22H21V2C18.24 2 16 4.24 16 6Z" fill="currentColor"/>
+                    </svg>
+                    <span>Diet</span>
+                </a>
+            </li>
+            <li>
+                <a href="help.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.89 11.1C13.58 10.28 14 9.19 14 8C14 5.79 12.21 4 10 4V6C11.1 6 12 6.9 12 8C12 8.55 11.78 9.05 11.43 9.43L9.57 11.29C9.22 11.64 9 12.14 9 12.69V16H11V13.41L12.89 11.1ZM11 18H13V20H11V18Z" fill="currentColor"/>
+                    </svg>
+                    <span>Help</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1 class="page-title">Find Specialists</h1>
+            <p class="subtitle">Connect with healthcare professionals based on your health needs</p>
+        </div>
+        
+        <div class="card">
+            <div class="search-filters">
+                <input type="text" class="filter-input" placeholder="Search by name or specialty">
+                <select class="filter-input">
+                    <option value="">Select Specialty</option>
+                    <option value="endocrinologist">Endocrinologist</option>
+                    <option value="cardiologist">Cardiologist</option>
+                    <option value="dietitian">Dietitian</option>
+                    <option value="hematologist">Hematologist</option>
+                    <option value="internist">Internist</option>
+                </select>
+                <input type="text" class="filter-input" placeholder="Location">
+                <button class="btn btn-primary">Search</button>
+            </div>
+            
+            <div class="map-container">
+                <p>Map view will be displayed here</p>
+            </div>
+            
+            <h3 style="margin-bottom: 1rem;">Recommended for You</h3>
+            <p style="margin-bottom: 1.5rem;">Based on your recent test results, we recommend the following specialists:</p>
+            
+            <div class="specialists-grid">
+                <div class="specialist-card">
+                    <div class="specialist-header">
+                        <div class="specialist-avatar">DR</div>
+                        <div>
+                            <h3 class="specialist-name">Dr. Rajesh Sharma</h3>
+                            <div class="specialist-title">Endocrinologist, MD</div>
+                            <div class="specialist-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <span style="color: var(--text-light); margin-left: 0.5rem;">5.0 (48 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="specialist-body">
+                        <div class="specialist-info">
+                            <div class="info-item">
+                                <svg class="info-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                </svg>
+                                <span>Bangalore Medical Center, 3.4 km away</span>
+                            </div>
+                            <div class="info-item">
+                                <svg class="info-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="currentColor"/>
+                                    <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" fill="currentColor"/>
+                                </svg>
+                                <span>Next available: Tomorrow, 10:30 AM</span>
+                            </div>
+                            <div class="info-item">
+                                <svg class="info-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" fill="currentColor"/>
+                                </svg>
+                                <span>Accepts your insurance (HDFC Ergo)</span>
+                            </div>
+                        </div>
+                        <div class="specialist-tags">
+                            <span class="tag">Diabetes</span>
+                            <span class="tag">Thyroid Disorders</span>
+                            <span class="tag">Hormone Imbalance</span>
+                            <span class="tag">Telemedicine</span>
+                        </div>
+                        <p style="font-size: 0.875rem; margin-bottom: 1.5rem;">
+                            Dr. Sharma specializes in metabolic disorders with 15+ years of experience. His approach focuses on lifestyle modifications alongside medical interventions.
+                        </p>
+                        <div class="specialist-footer">
+                            <a href="#" class="btn btn-primary">Book Appointment</a>
+                            <a href="#" class="btn btn-outline">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-header">
+                        <div class="specialist-avatar">SM</div>
+                        <div>
+                            <h3 class="specialist-name">Sarah Mehta, RD</h3>
+                            <div class="specialist-title">Registered Dietitian</div>
+                            <div class="specialist-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" fill="currentColor"/>
+                                </svg>
+                                <span style="color: var(--text-light); margin-left: 0.5rem;">4.8 (32 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="specialist-body">
+                        <div class="specialist-info">
+                            <div class="info-item">
+                                <svg class="info-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                                </svg>
+                                <span>Nutrition Sciences Clinic, 1.8 km away</span>
+                            </div>
+                            <div class="info-item">
+                                <svg class="info-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="currentColor"/>
+                                    <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" fill="currentColor"/>
+                                </svg>
+                                <span>Next available: Today, 4:15 PM</span>
+                            </div>
+                            <div class="info-item">
+                                <svg class="info-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" fill="currentColor"/>
+                                </svg>
+                                <span>Accepts your insurance (HDFC Ergo)</span>
+                            </div>
+                        </div>
+                        <div class="specialist-tags">
+                            <span class="tag">Nutrition Planning</span>
+                            <span class="tag">Cholesterol Management</span>
+                            <span class="tag">Vitamin Deficiencies</span>
+                            <span class="tag">Telemedicine</span>
+                        </div>
+                        <p style="font-size: 0.875rem; margin-bottom: 1.5rem;">
+                            Sarah specializes in dietary interventions for metabolic and cardiovascular health. She creates personalized nutrition plans that fit your lifestyle and preferences.
+                        </p>
+                        <div class="specialist-footer">
+                            <a href="#" class="btn btn-primary">Book Appointment</a>
+                            <a href="#" class="btn btn-outline">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="#" class="btn btn-outline">View More Specialists</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3 style="margin-bottom: 1rem;">Get a Second Opinion</h3>
+            <p style="margin-bottom: 1.5rem;">Not sure which specialist is right for you? Our medical team can review your reports and recommend the most appropriate specialists for your health needs.</p>
+            
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="#" class="btn btn-primary">Request Second Opinion</a>
+                <a href="#" class="btn btn-outline">Upload Additional Reports</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3 style="margin-bottom: 1rem;">Health Resources</h3>
+            <p style="margin-bottom: 1.5rem;">Explore these resources to better understand your condition and prepare for your appointment:</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
+                <div style="border: 1px solid var(--border); border-radius: 0.5rem; padding: 1rem;">
+                    <h4 style="margin-bottom: 0.5rem;">Understanding Blood Test Results</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-light); margin-bottom: 1rem;">Learn how to interpret common blood test markers and what they mean for your health.</p>
+                    <a href="#" class="btn btn-outline" style="width: 100%;">Read Article</a>
+                </div>
+                
+                <div style="border: 1px solid var(--border); border-radius: 0.5rem; padding: 1rem;">
+                    <h4 style="margin-bottom: 0.5rem;">Questions to Ask Your Specialist</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-light); margin-bottom: 1rem;">Prepare for your appointment with this helpful guide of important questions to ask.</p>
+                    <a href="#" class="btn btn-outline" style="width: 100%;">Download Guide</a>
+                </div>
+                
+                <div style="border: 1px solid var(--border); border-radius: 0.5rem; padding: 1rem;">
+                    <h4 style="margin-bottom: 0.5rem;">Telemedicine: What to Expect</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-light); margin-bottom: 1rem;">Tips for getting the most out of your virtual appointment with a healthcare provider.</p>
+                    <a href="#" class="btn btn-outline" style="width: 100%;">Watch Video</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // This would be replaced with real appointment booking and specialist filtering functionality
+        document.querySelectorAll('.btn-primary').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.textContent === 'Book Appointment') {
+                    e.preventDefault();
+                    alert('This would open the appointment booking interface in a real implementation.');
+                }
+            });
+        });
+        
+        // Search functionality
+        const searchBtn = document.querySelector('.search-filters .btn-primary');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', function() {
+                alert('This would filter specialists based on your search criteria in a real implementation.');
+            });
+        }
+    </script>
+</body>
+</html>

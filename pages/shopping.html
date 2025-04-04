@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping & Meal Services - HealthInsightToday</title>
+    <!-- External CSS Files -->
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/utilities.css">
+    <!-- Custom styles specific to the shopping page -->
+    <style>
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .grocery-container {
+            margin-bottom: 2rem;
+        }
+        
+        .grocery-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .grocery-category {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .grocery-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+        }
+        
+        .grocery-checkbox {
+            margin-right: 0.75rem;
+        }
+        
+        .grocery-name {
+            flex: 1;
+        }
+        
+        .grocery-benefit {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-left: 1rem;
+        }
+        
+        .meal-service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .meal-service-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .meal-service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .meal-service-image {
+            height: 160px;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .meal-service-content {
+            padding: 1.5rem;
+        }
+        
+        .meal-service-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meal-service-description {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .meal-service-features {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .meal-service-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(79, 70, 229, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .meal-service-price {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .meal-service-price span {
+            color: var(--text-light);
+            font-weight: normal;
+            font-size: 0.875rem;
+        }
+        
+        .meal-service-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .local-stores {
+            margin-top: 2rem;
+        }
+        
+        .store-card {
+            display: flex;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .store-map {
+            width: 200px;
+            height: 150px;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .store-details {
+            flex: 1;
+            padding: 1.5rem;
+        }
+        
+        .store-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .store-address {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .store-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .store-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--light-bg);
+            border-radius: 20px;
+        }
+        
+        .store-hours {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .store-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .store-card {
+                flex-direction: column;
+            }
+            
+            .store-map {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="../index.html" class="brand">HealthInsightToday</a>
+            <div class="user-menu">
+                <div class="notifications">
+                    <span class="notifications-count">3</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.36 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.63 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">JS</div>
+                    <span>John Smith</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor"/>
+                    </svg>
+                    <span>Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="specialists.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Specialists</span>
+                </a>
+            </li>
+            <li>
+                <a href="insights.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z" fill="currentColor"/>
+                    </svg>
+                    <span>Insights</span>
+                </a>
+            </li>
+            <li>
+                <a href="diet.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 9H9V2H7V9H5V2H3V9C3 11.12 4.66 12.84 6.75 12.97V22H9.25V12.97C11.34 12.84 13 11.12 13 9V2H11V9ZM16 6V14H18.5V22H21V2C18.24 2 16 4.24 16 6Z" fill="currentColor"/>
+                    </svg>
+                    <span>Diet</span>
+                </a>
+            </li>
+            <li>
+                <a href="shopping.html" class="active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+                    </svg>
+                    <span>Shopping</span>
+                </a>
+            </li>
+            <li>
+                <a href="help.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.89 11.1C13.58 10.28 14 9.19 14 8C14 5.79 12.21 4 10 4V6C11.1 6 12 6.9 12 8C12 8.55 11.78 9.05 11.43 9.43L9.57 11.29C9.22 11.64 9 12.14 9 12.69V16H11V13.41L12.89 11.1ZM11 18H13V20H11V18Z" fill="currentColor"/>
+                    </svg>
+                    <span>Help</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1 class="page-title">Shopping & Meal Services</h1>
+            <p class="subtitle">Personalized grocery recommendations and meal delivery options</p>
+        </div>
+        
+        <div class="card">
+            <div class="tabs">
+                <div class="tab active">Grocery List</div>
+                <div class="tab">Meal Delivery</div>
+                <div class="tab">Local Health Stores</div>
+            </div>
+            
+            <div class="grocery-container">
+                <h2 class="section-title">Personalized Grocery Recommendations</h2>
+                <p class="section-subtitle">Based on your health profile and recent lab results, these foods can help improve your nutrition.</p>
+                
+                <div class="grocery-category">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.42 4.58C19.76 3.91 18.94 3.41 18.05 3.11C17.15 2.81 16.19 2.72 15.26 2.86C14.32 3 13.44 3.35 12.65 3.91C11.87 4.46 11.22 5.19 10.75 6.05C10.28 6.9 10 7.85 10 8.82C10 9.79 10.28 10.74 10.75 11.6C11.22 12.45 11.87 13.18 12.65 13.74C13.44 14.3 14.32 14.65 15.26 14.79C16.19 14.93 17.15 14.84 18.05 14.54C18.94 14.24 19.76 13.74 20.42 13.07C21.09 12.41 21.59 11.58 21.89 10.69C22.19 9.8 22.28 8.84 22.14 7.9C22 6.97 21.65 6.08 21.09 5.3C20.53 4.52 19.8 3.87 18.95 3.4L19.61 2.41C20.13 2.76 20.62 3.17 21.04 3.66C21.77 4.49 22.3 5.47 22.58 6.53C22.87 7.59 22.91 8.7 22.69 9.78C22.48 10.85 22.02 11.86 21.36 12.72C20.7 13.59 19.85 14.29 18.88 14.77C17.9 15.24 16.83 15.48 15.76 15.46C14.68 15.44 13.62 15.16 12.67 14.65C11.71 14.14 10.89 13.41 10.26 12.52C9.64 11.63 9.23 10.6 9.08 9.52C8.92 8.44 9.02 7.34 9.36 6.31C9.71 5.29 10.29 4.36 11.06 3.61C11.84 2.85 12.77 2.29 13.8 1.96L14.12 3.03C13.26 3.31 12.48 3.78 11.84 4.41Z" fill="#4f46e5"/>
+                    </svg>
+                    <span>Vitamin D Rich Foods</span>
+                </div>
+                <ul class="grocery-list">
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food1">
+                        <label class="grocery-name" for="food1">Fatty Fish (Salmon, Mackerel, Tuna)</label>
+                        <div class="grocery-benefit">Excellent source of vitamin D to address deficiency</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food2">
+                        <label class="grocery-name" for="food2">Egg Yolks</label>
+                        <div class="grocery-benefit">Contains vitamin D and heart-healthy nutrients</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food3">
+                        <label class="grocery-name" for="food3">Fortified Milk or Plant Milk</label>
+                        <div class="grocery-benefit">Good dietary source of vitamin D</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food4">
+                        <label class="grocery-name" for="food4">Mushrooms (especially sun-exposed)</label>
+                        <div class="grocery-benefit">One of the few plant sources of vitamin D</div>
+                    </li>
+                </ul>
+                
+                <div class="grocery-category">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ef4444"/>
+                    </svg>
+                    <span>Cholesterol-Lowering Foods</span>
+                </div>
+                <ul class="grocery-list">
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food5">
+                        <label class="grocery-name" for="food5">Oats and Barley</label>
+                        <div class="grocery-benefit">Contain beta-glucans that help lower LDL cholesterol</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food6">
+                        <label class="grocery-name" for="food6">Beans and Legumes</label>
+                        <div class="grocery-benefit">Rich in soluble fiber that helps reduce cholesterol absorption</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food7">
+                        <label class="grocery-name" for="food7">Avocados</label>
+                        <div class="grocery-benefit">Rich in monounsaturated fats that help lower LDL cholesterol</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food8">
+                        <label class="grocery-name" for="food8">Nuts (Almonds, Walnuts)</label>
+                        <div class="grocery-benefit">Heart-healthy fats that can improve cholesterol levels</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food9">
+                        <label class="grocery-name" for="food9">Olive Oil</label>
+                        <div class="grocery-benefit">Monounsaturated fats help reduce LDL cholesterol</div>
+                    </li>
+                </ul>
+                
+                <div class="grocery-category">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 21v-2H2v2h20zM5.24 8.07l2.83-2.83 14.14 14.14-2.83 2.83L5.24 8.07zM12.32 1l5.66 5.66-2.83 2.83-5.66-5.66L12.32 1zM3.83 9.48l5.66-5.66 2.83 2.83-5.66 5.66L3.83 9.48z" fill="#22c55e"/>
+                    </svg>
+                    <span>Iron-Rich Foods</span>
+                </div>
+                <ul class="grocery-list">
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food10">
+                        <label class="grocery-name" for="food10">Lean Red Meat</label>
+                        <div class="grocery-benefit">Excellent source of heme iron, highly absorbable</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food11">
+                        <label class="grocery-name" for="food11">Spinach and Leafy Greens</label>
+                        <div class="grocery-benefit">Good plant source of iron plus other nutrients</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food12">
+                        <label class="grocery-name" for="food12">Lentils and Beans</label>
+                        <div class="grocery-benefit">Plant-based iron source with fiber and protein</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food13">
+                        <label class="grocery-name" for="food13">Fortified Cereals</label>
+                        <div class="grocery-benefit">Many breakfast cereals are fortified with iron</div>
+                    </li>
+                </ul>
+                
+                <div class="grocery-category">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="#f59e0b"/>
+                    </svg>
+                    <span>Hydration and Supplements</span>
+                </div>
+                <ul class="grocery-list">
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food14">
+                        <label class="grocery-name" for="food14">Coconut Water</label>
+                        <div class="grocery-benefit">Natural electrolytes for hydration</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food15">
+                        <label class="grocery-name" for="food15">Vitamin D3 Supplements</label>
+                        <div class="grocery-benefit">Helps address your vitamin D deficiency</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food16">
+                        <label class="grocery-name" for="food16">Chia Seeds</label>
+                        <div class="grocery-benefit">Good for hydration and rich in omega-3s</div>
+                    </li>
+                    <li class="grocery-item">
+                        <input type="checkbox" class="grocery-checkbox" id="food17">
+                        <label class="grocery-name" for="food17">Green Tea</label>
+                        <div class="grocery-benefit">Antioxidants that support heart health</div>
+                    </li>
+                </ul>
+                
+                <div class="mt-4">
+                    <button class="btn btn-primary">Create Shopping List</button>
+                    <button class="btn btn-outline ml-2">Email List</button>
+                </div>
+            </div>
+            
+            <div class="meal-service-container" style="display: none;">
+                <h2 class="section-title">Meal Delivery Services</h2>
+                <p class="section-subtitle">These services offer meal options that align with your nutritional needs.</p>
+                
+                <div class="meal-service-grid">
+                    <div class="meal-service-card">
+                        <div class="meal-service-image">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11 9H9V2H7V9H5V2H3V9C3 11.12 4.66 12.84 6.75 12.97V22H9.25V12.97C11.34 12.84 13 11.12 13 9V2H11V9ZM16 6V14H18.5V22H21V2C18.24 2 16 4.24 16 6Z" fill="#4f46e5"/>
+                            </svg>
+                        </div>
+                        <div class="meal-service-content">
+                            <h3 class="meal-service-name">NutriChef Delivery</h3>
+                            <p class="meal-service-description">Customized meal plans with a focus on heart-healthy, vitamin-rich options. All meals are prepared by certified nutritionists.</p>
+                            <ul class="meal-service-features">
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Heart-healthy meal options</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Vitamin D-rich ingredients</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Low cholesterol recipes</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Free delivery, flexible schedule</span>
+                                </li>
+                            </ul>
+                            <div class="meal-service-price">
+                                $11.99 <span>per meal</span>
+                            </div>
+                            <div class="meal-service-actions">
+                                <button class="btn btn-primary">View Meal Plans</button>
+                                <button class="btn btn-outline">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="meal-service-card">
+                        <div class="meal-service-image">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.71 2.29a1 1 0 0 0-1.42 0l-9 9a1 1 0 0 0 0 1.42A1 1 0 0 0 3 13h1v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7h1a1 1 0 0 0 1-1 1 1 0 0 0-.29-.71l-9-9zM8 20V10.41l4-4 4 4V20H8z" fill="#4f46e5"/>
+                            </svg>
+                        </div>
+                        <div class="meal-service-content">
+                            <h3 class="meal-service-name">HomeHealth Kitchen</h3>
+                            <p class="meal-service-description">Balanced meals using organic ingredients with options specifically designed for cholesterol management and vitamin optimization.</p>
+                            <ul class="meal-service-features">
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>100% organic ingredients</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Personalized nutrition plans</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Weekly meal rotation</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Consultation with dietitians</span>
+                                </li>
+                            </ul>
+                            <div class="meal-service-price">
+                                $13.50 <span>per meal</span>
+                            </div>
+                            <div class="meal-service-actions">
+                                <button class="btn btn-primary">View Meal Plans</button>
+                                <button class="btn btn-outline">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="meal-service-card">
+                        <div class="meal-service-image">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 4h2v16h-2V4zM3 16h2v4H3v-4zm4-8h2v12H7V8zm4 4h2v8h-2v-8zm4-8h2v16h-2V4z" fill="#4f46e5"/>
+                            </svg>
+                        </div>
+                        <div class="meal-service-content">
+                            <h3 class="meal-service-name">VitaBalance Meals</h3>
+                            <p class="meal-service-description">Science-backed meal plans optimized for specific health conditions, including vitamin deficiencies and cardiovascular health.</p>
+                            <ul class="meal-service-features">
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Designed by medical professionals</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Condition-specific meal plans</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Detailed nutrition tracking</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Mobile app for health tracking</span>
+                                </li>
+                            </ul>
+                            <div class="meal-service-price">
+                                $14.99 <span>per meal</span>
+                            </div>
+                            <div class="meal-service-actions">
+                                <button class="btn btn-primary">View Meal Plans</button>
+                                <button class="btn btn-outline">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="meal-service-card">
+                        <div class="meal-service-image">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z" fill="#4f46e5"/>
+                            </svg>
+                        </div>
+                        <div class="meal-service-content">
+                            <h3 class="meal-service-name">FoodPharmacy</h3>
+                            <p class="meal-service-description">Therapeutic food approach with meals designed to target specific nutritional needs and health concerns.</p>
+                            <ul class="meal-service-features">
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Therapeutic food protocols</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Anti-inflammatory ingredients</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Research-backed formulations</span>
+                                </li>
+                                <li class="meal-service-feature">
+                                    <div class="feature-icon">✓</div>
+                                    <span>Doctor-recommended service</span>
+                                </li>
+                            </ul>
+                            <div class="meal-service-price">
+                                $15.50 <span>per meal</span>
+                            </div>
+                            <div class="meal-service-actions">
+                                <button class="btn btn-primary">View Meal Plans</button>
+                                <button class="btn btn-outline">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-chart">
+                    <h3 class="mt-4 mb-2">Service Comparison</h3>
+                    <p class="text-light mb-4">Based on your health profile, NutriChef and VitaBalance would be most aligned with your nutritional needs.</p>
+                    <button class="btn btn-primary">See Detailed Comparison</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem;">Local Health Food Stores</h2>
+            <p style="margin-bottom: 1.5rem;">Find specialty health stores near you that carry recommended products:</p>
+            
+            <div class="location-filter">
+                <input type="text" class="location-input" placeholder="Enter your zip code or city" value="San Francisco, CA">
+                <button class="btn btn-primary">Update Location</button>
+            </div>
+            
+            <div class="local-stores">
+                <div class="local-store">
+                    <div class="store-logo">🌿</div>
+                    <div class="store-content">
+                        <h3 class="store-name">Whole Foods Market</h3>
+                        <p class="store-address">399 4th Street, San Francisco, CA 94107</p>
+                        <div class="store-features">
+                            <span class="store-feature">Organic Produce</span>
+                            <span class="store-feature">Vitamin Shop</span>
+                            <span class="store-feature">Health Supplements</span>
+                            <span class="store-feature">Special Diet Foods</span>
+                        </div>
+                        <p class="store-hours">Open: 8:00 AM - 10:00 PM</p>
+                    </div>
+                    <div class="store-actions">
+                        <a href="#" class="btn btn-outline">Directions</a>
+                        <a href="#" class="btn btn-primary">Shop Online</a>
+                    </div>
+                </div>
+                
+                <div class="local-store">
+                    <div class="store-logo">🥑</div>
+                    <div class="store-content">
+                        <h3 class="store-name">Rainbow Grocery Cooperative</h3>
+                        <p class="store-address">1745 Folsom Street, San Francisco, CA 94103</p>
+                        <div class="store-features">
+                            <span class="store-feature">Local Produce</span>
+                            <span class="store-feature">Bulk Foods</span>
+                            <span class="store-feature">Vegetarian</span>
+                            <span class="store-feature">Wellness Department</span>
+                        </div>
+                        <p class="store-hours">Open: 9:00 AM - 9:00 PM</p>
+                    </div>
+                    <div class="store-actions">
+                        <a href="#" class="btn btn-outline">Directions</a>
+                        <a href="#" class="btn btn-primary">Shop Online</a>
+                    </div>
+                </div>
+                
+                <div class="local-store">
+                    <div class="store-logo">💊</div>
+                    <div class="store-content">
+                        <h3 class="store-name">The Vitamin Shoppe</h3>
+                        <p class="store-address">2101 Van Ness Ave, San Francisco, CA 94109</p>
+                        <div class="store-features">
+                            <span class="store-feature">Supplements</span>
+                            <span class="store-feature">Vitamin D Specialists</span>
+                            <span class="store-feature">Sports Nutrition</span>
+                            <span class="store-feature">Health Consultations</span>
+                        </div>
+                        <p class="store-hours">Open: 10:00 AM - 8:00 PM</p>
+                    </div>
+                    <div class="store-actions">
+                        <a href="#" class="btn btn-outline">Directions</a>
+                        <a href="#" class="btn btn-primary">Shop Online</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // In a real implementation, we would show/hide content based on selected tab
+            });
+        });
+        
+        // Checkbox functionality for grocery items
+        const checkboxes = document.querySelectorAll('.grocery-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const item = e.target.closest('.grocery-item');
+                if (e.target.checked) {
+                    item.style.opacity = '0.5';
+                    item.style.textDecoration = 'line-through';
+                } else {
+                    item.style.opacity = '1';
+                    item.style.textDecoration = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

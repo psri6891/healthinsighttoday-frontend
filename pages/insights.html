@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Insights - HealthInsightToday</title>
+    <!-- External CSS Files -->
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/utilities.css">
+    <!-- Custom styles specific to the insights page -->
+    <style>
+        .chart-container {
+            height: 300px;
+            background-color: var(--light-bg);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+        }
+        
+        .insight-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        
+        .insight-tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        
+        .insight-tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .insight-tab:hover {
+            color: var(--primary);
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .insight-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        
+        .insight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .insight-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .insight-type {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .insight-date {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        .insight-content {
+            padding: 1rem;
+        }
+        
+        .insight-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .insight-description {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .insight-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .insight-stat {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            background-color: var(--light-bg);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .insight-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            align-items: center;
+        }
+        
+        .insight-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .insight-tag {
+            padding: 0.25rem 0.5rem;
+            background-color: var(--light-bg);
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .trend-up {
+            color: var(--success);
+        }
+        
+        .trend-down {
+            color: var(--error);
+        }
+        
+        .trend-neutral {
+            color: var(--text-light);
+        }
+        
+        .time-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        
+        .time-filter {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .time-filter.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="../index.html" class="brand">HealthInsightToday</a>
+            <div class="user-menu">
+                <div class="notifications">
+                    <span class="notifications-count">3</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.36 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.63 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">JS</div>
+                    <span>John Smith</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor"/>
+                    </svg>
+                    <span>Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="specialists.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Specialists</span>
+                </a>
+            </li>
+            <li>
+                <a href="insights.html" class="active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z" fill="currentColor"/>
+                    </svg>
+                    <span>Insights</span>
+                </a>
+            </li>
+            <li>
+                <a href="diet.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 9H9V2H7V9H5V2H3V9C3 11.12 4.66 12.84 6.75 12.97V22H9.25V12.97C11.34 12.84 13 11.12 13 9V2H11V9ZM16 6V14H18.5V22H21V2C18.24 2 16 4.24 16 6Z" fill="currentColor"/>
+                    </svg>
+                    <span>Diet</span>
+                </a>
+            </li>
+            <li>
+                <a href="shopping.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+                    </svg>
+                    <span>Shopping</span>
+                </a>
+            </li>
+            <li>
+                <a href="help.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.89 11.1C13.58 10.28 14 9.19 14 8C14 5.79 12.21 4 10 4V6C11.1 6 12 6.9 12 8C12 8.55 11.78 9.05 11.43 9.43L9.57 11.29C9.22 11.64 9 12.14 9 12.69V16H11V13.41L12.89 11.1ZM11 18H13V20H11V18Z" fill="currentColor"/>
+                    </svg>
+                    <span>Help</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1 class="page-title">Health Insights</h1>
+            <p class="subtitle">Personalized health recommendations based on your reports</p>
+        </div>
+        
+        <div class="time-filters">
+            <div class="time-filter active">Last 30 Days</div>
+            <div class="time-filter">Last 3 Months</div>
+            <div class="time-filter">Last 6 Months</div>
+            <div class="time-filter">Last Year</div>
+            <div class="time-filter">All Time</div>
+        </div>
+        
+        <div class="card">
+            <div class="insight-tabs">
+                <div class="insight-tab active">Overview</div>
+                <div class="insight-tab">Cholesterol</div>
+                <div class="insight-tab">Vitamin D</div>
+                <div class="insight-tab">Iron</div>
+                <div class="insight-tab">Blood Sugar</div>
+                <div class="insight-tab">Blood Pressure</div>
+            </div>
+            
+            <div class="chart-container">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z" fill="#4f46e5"/>
+                </svg>
+                <p>Health trend visualization will be displayed here</p>
+            </div>
+            
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <span class="insight-type">Cholesterol</span>
+                        <span class="insight-date">Apr 1, 2023</span>
+                    </div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Elevated LDL Cholesterol</h3>
+                        <p class="insight-description">Your recent lipid panel shows LDL cholesterol above optimal range. We recommend dietary changes to lower your cholesterol levels.</p>
+                        <div class="insight-stats">
+                            <div class="insight-stat">
+                                <div class="stat-value">210</div>
+                                <div>Total</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-value">128</div>
+                                <div>LDL</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-value">54</div>
+                                <div>HDL</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-footer">
+                        <div class="insight-tags">
+                            <div class="insight-tag">Nutrition</div>
+                            <div class="insight-tag">Heart Health</div>
+                        </div>
+                        <div class="trend-indicator trend-up">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" fill="currentColor"/>
+                            </svg>
+                            <span>5%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <span class="insight-type">Vitamin D</span>
+                        <span class="insight-date">Mar 15, 2023</span>
+                    </div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Vitamin D Deficiency</h3>
+                        <p class="insight-description">Your vitamin D levels are below the recommended range. This can affect bone health and immune function. Consider supplementation or more sun exposure.</p>
+                        <div class="insight-stats">
+                            <div class="insight-stat">
+                                <div class="stat-value">28</div>
+                                <div>ng/mL</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-value">50+</div>
+                                <div>Target</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-footer">
+                        <div class="insight-tags">
+                            <div class="insight-tag">Supplements</div>
+                            <div class="insight-tag">Bone Health</div>
+                        </div>
+                        <div class="trend-indicator trend-down">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" fill="currentColor"/>
+                            </svg>
+                            <span>10%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <span class="insight-type">Blood Pressure</span>
+                        <span class="insight-date">Feb 20, 2023</span>
+                    </div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Optimal Blood Pressure</h3>
+                        <p class="insight-description">Your blood pressure readings are within healthy range. Continue with your current lifestyle habits to maintain these optimal levels.</p>
+                        <div class="insight-stats">
+                            <div class="insight-stat">
+                                <div class="stat-value">118</div>
+                                <div>Systolic</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-value">75</div>
+                                <div>Diastolic</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-footer">
+                        <div class="insight-tags">
+                            <div class="insight-tag">Heart Health</div>
+                            <div class="insight-tag">Lifestyle</div>
+                        </div>
+                        <div class="trend-indicator trend-neutral">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12l-4-4v3H3v2h15v3l4-4z" fill="currentColor"/>
+                            </svg>
+                            <span>Stable</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <span class="insight-type">Exercise</span>
+                        <span class="insight-date">Feb 10, 2023</span>
+                    </div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Increase Physical Activity</h3>
+                        <p class="insight-description">Based on your health profile and current cholesterol levels, increasing physical activity could help improve overall health markers.</p>
+                        <div class="insight-stats">
+                            <div class="insight-stat">
+                                <div class="stat-value">20</div>
+                                <div>Current Min/Day</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-value">30+</div>
+                                <div>Recommended</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-footer">
+                        <div class="insight-tags">
+                            <div class="insight-tag">Exercise</div>
+                            <div class="insight-tag">Heart Health</div>
+                        </div>
+                        <div class="trend-indicator trend-up">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" fill="currentColor"/>
+                            </svg>
+                            <span>15%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // This would be replaced with real data handling and visualization in production
+        console.log("Insights page loaded with dummy data");
+    </script>
+</body>
+</html>

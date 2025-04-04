@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - HealthInsightToday</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3c35b1;
+            --secondary: #38bdf8;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --background: #ffffff;
+            --light-bg: #f8fafc;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-item {
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .page-header {
+            background-color: var(--light-bg);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .content-section {
+            padding: 3rem 0;
+        }
+        
+        .faq-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            background-color: var(--light-bg);
+            color: var(--text);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.25rem;
+            background-color: var(--light-bg);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question:after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-question:after {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 1.25rem;
+            max-height: 500px;
+        }
+        
+        .highlight-box {
+            background-color: rgba(79, 70, 229, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        footer {
+            background-color: var(--text);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .footer-list {
+            list-style: none;
+        }
+        
+        .footer-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-list a {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .footer-list a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .search-container {
+            margin-bottom: 2rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        .category-section {
+            margin-bottom: 3rem;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 100;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="navbar-brand">HealthInsightToday</a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html#features" class="nav-link">Features</a></li>
+                    <li class="nav-item"><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+                    <li class="nav-item"><a href="privacy.html" class="nav-link">Privacy</a></li>
+                    <li class="nav-item"><a href="terms.html" class="nav-link">Terms</a></li>
+                </ul>
+                <a href="pages/register.html" class="btn">Try for Free</a>
+                <button class="mobile-menu-btn">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Frequently Asked Questions</h1>
+            <p>Find answers to common questions about HealthInsightToday</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="faq-content">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search for questions..." id="faq-search">
+                </div>
+                
+                <div class="faq-categories">
+                    <button class="category-btn active" data-category="all">All Questions</button>
+                    <button class="category-btn" data-category="general">General</button>
+                    <button class="category-btn" data-category="account">Account</button>
+                    <button class="category-btn" data-category="data">Data & Privacy</button>
+                    <button class="category-btn" data-category="subscription">Subscription</button>
+                    <button class="category-btn" data-category="technical">Technical</button>
+                </div>
+                
+                <div class="category-section" id="general">
+                    <h2>General Questions</h2>
+                    
+                    <div class="faq-item" data-category="general">
+                        <div class="faq-question">What is HealthInsightToday?</div>
+                        <div class="faq-answer">
+                            <p>HealthInsightToday is an AI-powered platform that analyzes blood test reports to provide personalized health insights, actionable recommendations, and expert guidance. We help you understand your health data in simple terms and suggest steps to improve your health metrics.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="general">
+                        <div class="faq-question">How does HealthInsightToday work?</div>
+                        <div class="faq-answer">
+                            <p>HealthInsightToday works in four simple steps:</p>
+                            <ol>
+                                <li>Upload your blood test report (PDF or image)</li>
+                                <li>Our AI system extracts and analyzes the data</li>
+                                <li>You receive detailed health insights and recommendations</li>
+                                <li>Follow the personalized suggestions and track your progress over time</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="general">
+                        <div class="faq-question">Is HealthInsightToday a substitute for medical advice?</div>
+                        <div class="faq-answer">
+                            <p>No, HealthInsightToday is not a substitute for professional medical advice, diagnosis, or treatment. While we provide valuable insights about your health data, you should always consult with qualified healthcare professionals for medical decisions. Our service is designed to complement, not replace, your relationship with healthcare providers.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-section" id="account">
+                    <h2>Account & Registration</h2>
+                    
+                    <div class="faq-item" data-category="account">
+                        <div class="faq-question">How do I create an account?</div>
+                        <div class="faq-answer">
+                            <p>Creating an account is simple. Click the "Sign Up" button on our homepage, fill in your basic information (name, email, and password), and verify your email address. Once verified, you can log in and start using our services.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="account">
+                        <div class="faq-question">Can I use HealthInsightToday without creating an account?</div>
+                        <div class="faq-answer">
+                            <p>While we offer limited preview features without an account, creating a free account is necessary to upload reports, receive personalized insights, and track your health over time. Account creation is free and allows us to securely store your health data and provide continuity in your health journey.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="account">
+                        <div class="faq-question">How do I reset my password?</div>
+                        <div class="faq-answer">
+                            <p>If you've forgotten your password, click the "Forgot Password" link on the login page. Enter your registered email address, and we'll send you a password reset link. Follow the instructions in the email to create a new password.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-section" id="data">
+                    <h2>Data & Privacy</h2>
+                    
+                    <div class="faq-item" data-category="data">
+                        <div class="faq-question">How secure is my health data on HealthInsightToday?</div>
+                        <div class="faq-answer">
+                            <p>We take data security very seriously. All your health data is encrypted using industry-standard protocols both during transmission and storage. We comply with HIPAA regulations and implement multiple layers of security measures to protect your information. Your data is never sold to third parties, and you maintain control over who can access it.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="data">
+                        <div class="faq-question">Who can see my health data?</div>
+                        <div class="faq-answer">
+                            <p>By default, only you can access your health data. You have the option to share specific reports or insights with healthcare providers through secure links that you control. Our team members can only access anonymized data for service improvement purposes and cannot see your personal information without explicit permission.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="data">
+                        <div class="faq-question">Can I delete my data from your system?</div>
+                        <div class="faq-answer">
+                            <p>Yes, you have complete control over your data. You can delete individual reports or your entire account at any time from your account settings. When you delete your account, all your personal information and health data are permanently removed from our systems within 30 days, in accordance with our data retention policy.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-section" id="subscription">
+                    <h2>Subscription & Pricing</h2>
+                    
+                    <div class="faq-item" data-category="subscription">
+                        <div class="faq-question">What subscription plans do you offer?</div>
+                        <div class="faq-answer">
+                            <p>We offer several subscription tiers:</p>
+                            <ul>
+                                <li><strong>Free Plan:</strong> Basic report analysis with limited insights</li>
+                                <li><strong>Basic Plan ($9.99/month):</strong> Unlimited report analysis, detailed insights, and basic tracking</li>
+                                <li><strong>Premium Plan ($19.99/month):</strong> Everything in Basic plus advanced tracking, personalized recommendations, and specialist referrals</li>
+                                <li><strong>Family Plan ($29.99/month):</strong> Premium features for up to 5 family members</li>
+                            </ul>
+                            <p>All paid plans come with a 14-day free trial.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="subscription">
+                        <div class="faq-question">How do I cancel my subscription?</div>
+                        <div class="faq-answer">
+                            <p>You can cancel your subscription at any time from your account settings. Go to "Subscription" and click on "Cancel Subscription." Your subscription will remain active until the end of the current billing period, after which you'll be downgraded to the free plan. No refunds are provided for partial months.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="subscription">
+                        <div class="faq-question">Do you offer discounts for healthcare professionals or students?</div>
+                        <div class="faq-answer">
+                            <p>Yes, we offer special discount programs for healthcare professionals, students, and non-profit organizations. Contact our support team with valid credentials to learn more about our discount programs.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-section" id="technical">
+                    <h2>Technical Questions</h2>
+                    
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-question">What file formats do you support for blood test reports?</div>
+                        <div class="faq-answer">
+                            <p>We support the following file formats:</p>
+                            <ul>
+                                <li>PDF documents (most common lab report format)</li>
+                                <li>Images (JPG, PNG, HEIC)</li>
+                                <li>Scanned documents</li>
+                                <li>Direct imports from select laboratory providers</li>
+                            </ul>
+                            <p>For best results, ensure the report is clear, well-lit, and all values are visible.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-question">Which browsers and devices are supported?</div>
+                        <div class="faq-answer">
+                            <p>HealthInsightToday works on all modern browsers, including:</p>
+                            <ul>
+                                <li>Google Chrome (recommended)</li>
+                                <li>Safari</li>
+                                <li>Firefox</li>
+                                <li>Microsoft Edge</li>
+                            </ul>
+                            <p>Our platform is fully responsive and works on desktops, laptops, tablets, and smartphones. We also offer native mobile apps for iOS and Android for an enhanced mobile experience.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-question">What should I do if I encounter an error during report upload?</div>
+                        <div class="faq-answer">
+                            <p>If you encounter errors during upload, try these steps:</p>
+                            <ol>
+                                <li>Check your internet connection</li>
+                                <li>Ensure your file is in a supported format and under 20MB</li>
+                                <li>Try a different browser or device</li>
+                                <li>Convert image files to PDF if problems persist</li>
+                            </ol>
+                            <p>If issues continue, contact our support team with details about the error and a screenshot if possible.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Still have questions?</h3>
+                    <p>If you couldn't find the answer you were looking for, our support team is here to help. Contact us at support@healthinsighttoday.com or use the live chat feature on our website for immediate assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3 style="color: white;">HealthInsightToday</h3>
+                    <p>Transforming blood test reports into personalized health insights and actionable recommendations.</p>
+                </div>
+                
+                <div>
+                    <h4 style="color: white;">Product</h4>
+                    <ul class="footer-list">
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: white;">Company</h4>
+                    <ul class="footer-list">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: white;">Get Started</h4>
+                    <ul class="footer-list">
+                        <li><a href="pages/register.html">Sign Up</a></li>
+                        <li><a href="pages/login.html">Login</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 HealthInsightToday. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // Category filter
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const category = btn.getAttribute('data-category');
+                
+                if (category === 'all') {
+                    // Show all FAQ items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.style.display = 'block';
+                    });
+                    // Show all category sections
+                    document.querySelectorAll('.category-section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                } else {
+                    // Hide all FAQ items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.style.display = 'none';
+                    });
+                    // Show only FAQ items matching the category
+                    document.querySelectorAll(`.faq-item[data-category="${category}"]`).forEach(item => {
+                        item.style.display = 'block';
+                    });
+                    // Hide all category sections
+                    document.querySelectorAll('.category-section').forEach(section => {
+                        section.style.display = 'none';
+                    });
+                    // Show only the matching category section
+                    document.querySelector(`#${category}`).style.display = 'block';
+                }
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('faq-search');
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            // If search box is empty, show the default view
+            if (searchTerm === '') {
+                // Trigger click on "All Questions" button to reset
+                document.querySelector('.category-btn[data-category="all"]').click();
+                return;
+            }
+            
+            // Show all category sections
+            document.querySelectorAll('.category-section').forEach(section => {
+                section.style.display = 'block';
+            });
+            
+            let hasResults = false;
+            
+            // Filter FAQ items based on search
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Hide category sections that don't have any visible items
+            document.querySelectorAll('.category-section').forEach(section => {
+                const visibleItems = section.querySelectorAll('.faq-item[style="display: block;"]');
+                if (visibleItems.length === 0) {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // Deactivate all category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

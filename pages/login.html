@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HealthInsightToday</title>
+    <!-- External CSS Files -->
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/utilities.css">
+    <!-- Custom styles specific to the login page -->
+    <style>
+        body {
+            background-color: var(--background);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: white;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        
+        .btn-social:hover {
+            background-color: var(--light-bg);
+            color: var(--text);
+        }
+        
+        .login-page {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .login-form input[type="email"],
+        .login-form input[type="password"],
+        .login-form input[type="text"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-options .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-options .remember-me input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+        }
+        
+        .form-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--text-light);
+        }
+        
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .form-divider::before {
+            margin-right: 0.5rem;
+        }
+        
+        .form-divider::after {
+            margin-left: 0.5rem;
+        }
+        
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 480px) {
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-container {
+                box-shadow: none;
+                padding: 1.5rem;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="navbar-brand">HealthInsightToday</a>
+                <a href="register.html" class="btn btn-outline">Create Account</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="login-page">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Welcome back</h1>
+                <p>Enter your credentials to access your account</p>
+            </div>
+            
+            <form class="login-form" action="dashboard.html" method="GET">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+                
+                <div class="form-divider">Or continue with</div>
+                
+                <div class="social-buttons">
+                    <button type="button" class="btn btn-social">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#DB4437">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.46 8.12h-2.17v1.8h2.17v1.8h-2.17v1.8h-1.8v-1.8h-2.17v-1.8h2.17v-1.8h1.8zm-9.52 3.6c-.79 0-1.43-.64-1.43-1.44s.64-1.44 1.43-1.44c.33 0 .65.11.91.32-.43.36-.71.89-.71 1.48 0 .21.03.41.09.59-.09.04-.19.05-.29.05zm0-5.4c-2.19 0-3.94 1.8-3.94 4.02 0 2.22 1.75 4.02 3.94 4.02.75 0 1.48-.21 2.1-.6-.61-.59-.98-1.42-.98-2.34 0-1.8 1.46-3.24 3.24-3.24.92 0 1.74.38 2.34.98.38-.63.6-1.36.6-2.1 0-2.22-1.8-4.02-4.02-4.02-1.01 0-1.98.37-2.72 1.04-.73-.67-1.7-1.04-2.72-1.04z"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button type="button" class="btn btn-social">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 5.013 3.693 9.153 8.505 9.876V14.65H8.031v-2.629h2.474v-1.749c0-2.896 1.411-4.167 3.818-4.167 1.153 0 1.762.085 2.051.124v2.294h-1.642c-1.022 0-1.379.969-1.379 2.061v1.437h2.995l-.406 2.629h-2.588v7.247C18.235 21.236 22 17.062 22 12c0-5.523-4.477-10-10-10z"/>
+                        </svg>
+                        Facebook
+                    </button>
+                </div>
+            </form>
+            
+            <div class="form-footer">
+                <p>Don't have an account? <a href="register.html">Create an account</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Form validation or other JavaScript would go here
+    </script>
+</body>
+</html>

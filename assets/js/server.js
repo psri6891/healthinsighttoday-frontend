@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 // Configuration
 const PORT = 8000;
 const PROJECT_NAME = 'HealthInsightToday';
-const ROOT_DIR = path.join(__dirname, '../../..'); // Navigate from assets/js to project root
+const ROOT_DIR = path.join(__dirname, '../..');
 
 // Color codes for console logs
 const colors = {
@@ -85,115 +85,131 @@ function listAvailablePages() {
     
     if (htmlFiles.length === 0) {
       logWarning('No HTML pages found in the root directory.');
-      return;
-    }
-    
-    logInfo('Available pages:');
-    htmlFiles.forEach(file => {
-      console.log(`  ${colors.cyan}http://localhost:${PORT}/${file}${colors.reset}`);
-    });
-    
-    // Check for specific pages
-    if (htmlFiles.includes('index.html')) {
-      logSuccess('Home page available at: http://localhost:8000/index.html');
-    }
-    
-    if (htmlFiles.includes('privacy.html')) {
-      logSuccess('Privacy Policy available at: http://localhost:8000/privacy.html');
-    }
-    
-    if (htmlFiles.includes('terms.html')) {
-      logSuccess('Terms of Service available at: http://localhost:8000/terms.html');
+    } else {
+      logInfo('Available pages in root directory:');
+      htmlFiles.forEach(file => {
+        const route = file === 'index.html' ? '/' : `/${file.replace('.html', '')}`;
+        console.log(`  ${colors.cyan}http://localhost:${PORT}${route}${colors.reset}`);
+      });
     }
     
     // Check pages directory
     const pagesDir = path.join(ROOT_DIR, 'pages');
-    if (fs.existsSync(pagesDir)) {
-      fs.readdir(pagesDir, (pagesErr, pagesFiles) => {
-        if (!pagesErr && pagesFiles.length > 0) {
-          const pagesHtmlFiles = pagesFiles.filter(file => path.extname(file).toLowerCase() === '.html');
-          
-          if (pagesHtmlFiles.length > 0) {
-            logInfo('Pages in /pages directory:');
-            pagesHtmlFiles.forEach(file => {
-              console.log(`  ${colors.cyan}http://localhost:${PORT}/pages/${file}${colors.reset}`);
-            });
-          }
+    fs.readdir(pagesDir, (pagesErr, pagesFiles) => {
+      if (pagesErr) {
+        if (pagesErr.code !== 'ENOENT') {
+          logError(`Could not read pages directory: ${pagesErr.message}`);
         }
+      } else {
+        const pagesHtmlFiles = pagesFiles.filter(file => path.extname(file).toLowerCase() === '.html');
         
-        console.log('\n' + '-'.repeat(60) + '\n');
-      });
-    } else {
+        if (pagesHtmlFiles.length > 0) {
+          logInfo('Available pages in /pages directory:');
+          pagesHtmlFiles.forEach(file => {
+            const route = `/${file.replace('.html', '')}`;
+            console.log(`  ${colors.cyan}http://localhost:${PORT}${route}${colors.reset}`);
+          });
+        }
+      }
+      
       console.log('\n' + '-'.repeat(60) + '\n');
-    }
+    });
   });
+}
+
+// Try these paths in order until a file is found
+function tryFiles(urlPath, callback) {
+  // List of possible file paths to try, in order
+  const pathsToTry = [
+    // Exact path as requested
+    path.join(ROOT_DIR, urlPath),
+    
+    // Add .html extension if not present
+    path.extname(urlPath) ? null : path.join(ROOT_DIR, `${urlPath}.html`),
+    
+    // Check in pages directory
+    path.extname(urlPath) ? null : path.join(ROOT_DIR, 'pages', `${urlPath}.html`),
+    
+    // Try index.html if the path ends with /
+    urlPath.endsWith('/') ? path.join(ROOT_DIR, urlPath, 'index.html') : null,
+    
+    // Check for 404.html
+    path.join(ROOT_DIR, '404.html')
+  ].filter(p => p !== null);
+  
+  function tryNextPath(index) {
+    if (index >= pathsToTry.length) {
+      // No more paths to try, return 404
+      callback(null, 404);
+      return;
+    }
+    
+    const currentPath = pathsToTry[index];
+    
+    fs.readFile(currentPath, (err, content) => {
+      if (err) {
+        // File not found or error, try next path
+        tryNextPath(index + 1);
+      } else {
+        // File found, return its content
+        callback({
+          path: currentPath,
+          content: content,
+          statusCode: index === pathsToTry.length - 1 ? 404 : 200 // 404 if we're using the fallback 404.html
+        });
+      }
+    });
+  }
+  
+  // Start trying paths
+  tryNextPath(0);
 }
 
 // Create the server
 const server = http.createServer((req, res) => {
   const startTime = Date.now();
   
-  // Normalize URL by removing query string and trailing slash
+  // Normalize URL by removing query string
   let url = req.url.split('?')[0];
-  if (url.endsWith('/') && url !== '/') {
+  
+  // Remove trailing slash except for root
+  if (url.length > 1 && url.endsWith('/')) {
     url = url.slice(0, -1);
   }
   
-  // Handle root URL by serving index.html
-  if (url === '/') {
+  // Handle root URL
+  if (url === '' || url === '/') {
     url = '/index.html';
   }
   
-  // Get the file path
-  const filePath = path.join(ROOT_DIR, url);
-  
-  // Get the file extension
-  const extname = path.extname(filePath).toLowerCase();
-  
-  // Default content type
-  let contentType = MIME_TYPES[extname] || 'application/octet-stream';
-  
-  // Read file and respond
-  fs.readFile(filePath, (err, content) => {
-    let statusCode;
+  // Try to serve the requested file or find alternatives
+  tryFiles(url, (result, statusCode) => {
+    if (!result) {
+      // No file found, send generic 404
+      res.writeHead(404);
+      res.end('404 - File Not Found');
+      logRequest(req.method, url, 404, Date.now() - startTime);
+      logError(`Page not found: ${url}`);
+      return;
+    }
     
-    if (err) {
-      if (err.code === 'ENOENT') {
-        // Page not found
-        statusCode = 404;
-        // Try to find a 404.html file
-        const notFoundPath = path.join(ROOT_DIR, '404.html');
-        fs.readFile(notFoundPath, (notFoundErr, notFoundContent) => {
-          if (notFoundErr) {
-            res.writeHead(404);
-            res.end('404 - File Not Found');
-            logRequest(req.method, url, 404, Date.now() - startTime);
-            logError(`Page not found: ${url}`);
-          } else {
-            res.writeHead(404, { 'Content-Type': 'text/html' });
-            res.end(notFoundContent, 'utf-8');
-            logRequest(req.method, url, 404, Date.now() - startTime);
-            logWarning(`Page not found: ${url} (Served custom 404 page)`);
-          }
-        });
-      } else {
-        // Server error
-        statusCode = 500;
-        res.writeHead(500);
-        res.end(`Server Error: ${err.code}`);
-        logRequest(req.method, url, 500, Date.now() - startTime);
-        logError(`Server error: ${err.code} - ${err.message}`);
-      }
-    } else {
-      // Success
-      statusCode = 200;
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content, 'utf-8');
-      logRequest(req.method, url, 200, Date.now() - startTime);
-      
-      // Provide additional info for HTML pages
-      if (extname === '.html') {
+    // Get the content type based on file extension
+    const extname = path.extname(result.path).toLowerCase();
+    const contentType = MIME_TYPES[extname] || 'application/octet-stream';
+    
+    // Send the response
+    res.writeHead(result.statusCode, { 'Content-Type': contentType });
+    res.end(result.content);
+    
+    // Log the request
+    logRequest(req.method, url, result.statusCode, Date.now() - startTime);
+    
+    // Additional logging for HTML pages
+    if (extname === '.html') {
+      if (result.statusCode === 200) {
         logInfo(`Page visited: ${url}`);
+      } else if (result.statusCode === 404) {
+        logWarning(`Page not found: ${url} (Served custom 404 page)`);
       }
     }
   });

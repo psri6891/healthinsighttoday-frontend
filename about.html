@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - HealthInsightToday</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3c35b1;
+            --secondary: #38bdf8;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --background: #ffffff;
+            --light-bg: #f8fafc;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-item {
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .page-header {
+            background-color: var(--light-bg);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .content-section {
+            padding: 3rem 0;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .team-section {
+            margin-top: 3rem;
+        }
+        
+        .founder-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .founder-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+        
+        .founder-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .founder-role {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .founder-bio {
+            max-width: 600px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .value-card {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+        
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--light-bg);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            right: -10px;
+            z-index: 1;
+        }
+        
+        .timeline-item.left {
+            left: 0;
+        }
+        
+        .timeline-item.right {
+            left: 50%;
+        }
+        
+        .timeline-item.right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--light-bg);
+            border-radius: 0.5rem;
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .highlight-box {
+            background-color: rgba(79, 70, 229, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        footer {
+            background-color: var(--text);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .footer-list {
+            list-style: none;
+        }
+        
+        .footer-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-list a {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .footer-list a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 100;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item.right {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item.right::after {
+                left: 21px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="navbar-brand">HealthInsightToday</a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html#features" class="nav-link">Features</a></li>
+                    <li class="nav-item"><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+                    <li class="nav-item"><a href="privacy.html" class="nav-link">Privacy</a></li>
+                    <li class="nav-item"><a href="terms.html" class="nav-link">Terms</a></li>
+                </ul>
+                <a href="pages/register.html" class="btn">Try for Free</a>
+                <button class="mobile-menu-btn">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">About HealthInsightToday</h1>
+            <p>Our mission is to make health data accessible, understandable, and actionable for everyone.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>HealthInsightToday began with a personal experience. In late 2024, our founder Sri's mother received concerning blood test results. While the doctors explained some aspects, Sri realized how difficult it was for most people to truly understand what these numbers meant for their health and wellbeing. More importantly, he discovered that earlier detection of changes in kidney function markers could have led to earlier intervention.</p>
+                
+                <p>This experience sparked an idea: create a platform that could transform complex medical data into clear, actionable insights that anyone could understand. By December 2024, the concept for HealthInsightToday was born, and by March 2025, Sri began developing the platform in earnest.</p>
+                
+                <p>Currently in development and not yet officially launched, HealthInsightToday represents a passionate vision to democratize health knowledge and empower people to take control of their health journey through better understanding of their medical data.</p>
+                
+                <div class="founder-profile">
+                    <div class="founder-photo">SP</div>
+                    <h3 class="founder-name">Sri</h3>
+                    <p class="founder-role">Founder & CEO</p>
+                    <div class="founder-bio">
+                        <p>Driven by personal experience and a passion for making healthcare information more accessible, Sri founded HealthInsightToday after seeing firsthand how difficult it can be for patients and their families to understand medical test results.</p>
+                        <p>With a background in technology and a commitment to health education, Sri is working to build a platform that bridges the gap between complex medical data and everyday understanding.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <span class="timeline-year">December 2024</span>
+                            <h3>The Idea</h3>
+                            <p>After his mother's experience with blood tests and kidney function concerns, Sri conceives the idea for a platform that makes medical test results understandable to everyone.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <span class="timeline-year">March 2025</span>
+                            <h3>Development Begins</h3>
+                            <p>Sri begins actively developing the HealthInsightToday platform, focusing on creating an intuitive interface for analyzing blood test reports.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <span class="timeline-year">May 2025</span>
+                            <h3>Initial Prototype</h3>
+                            <p>The first working prototype of HealthInsightToday is completed, demonstrating the core concept of translating medical data into clear insights.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <span class="timeline-year">Present</span>
+                            <h3>Pre-Launch Development</h3>
+                            <p>Currently refining the platform, expanding features, and preparing for official launch to bring health insights to everyone.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>Our Mission</h2>
+                <p>At HealthInsightToday, our mission is to democratize health knowledge by making medical data accessible, understandable, and actionable for everyone. We believe that when people truly understand their health metrics, they're empowered to make better decisions and take proactive steps toward improved wellbeing.</p>
+                
+                <h2>Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🔍</div>
+                        <h3>Transparency</h3>
+                        <p>We believe in complete transparency about how we analyze your data, the limitations of our insights, and the scientific basis for our recommendations.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🔒</div>
+                        <h3>Privacy</h3>
+                        <p>Your health data is deeply personal. We maintain the highest standards of security and privacy, giving you complete control over your information.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🧠</div>
+                        <h3>Evidence-Based</h3>
+                        <p>All our health insights and recommendations are grounded in scientific research and medical best practices, reviewed by healthcare professionals.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🌱</div>
+                        <h3>Empowerment</h3>
+                        <p>We aim to empower, not replace, the relationship between patients and healthcare providers by facilitating better informed conversations.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Looking Forward</h3>
+                    <p>While we're still in the early stages of our journey, we're committed to building a platform that makes a real difference in people's health journeys. By transforming complex medical data into simple, actionable insights, we hope to help prevent health issues through early detection and improved understanding.</p>
+                </div>
+                
+                <h2>Contact Us</h2>
+                <p>Have questions about HealthInsightToday? We'd love to hear from you!</p>
+                <ul>
+                    <li><strong>General Inquiries:</strong> info@healthinsighttoday.com</li>
+                    <li><strong>Support:</strong> support@healthinsighttoday.com</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3 style="color: white;">HealthInsightToday</h3>
+                    <p>Transforming blood test reports into personalized health insights and actionable recommendations.</p>
+                </div>
+                
+                <div>
+                    <h4 style="color: white;">Product</h4>
+                    <ul class="footer-list">
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: white;">Company</h4>
+                    <ul class="footer-list">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: white;">Get Started</h4>
+                    <ul class="footer-list">
+                        <li><a href="pages/register.html">Sign Up</a></li>
+                        <li><a href="pages/login.html">Login</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 HealthInsightToday. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

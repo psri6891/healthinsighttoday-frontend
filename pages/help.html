@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - HealthInsightToday</title>
+    <!-- External CSS Files -->
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/utilities.css">
+    <!-- Custom styles specific to the help page -->
+    <style>
+        /* Styles specific to help.html that aren't common across the site */
+        .search-container {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-right: none;
+            border-radius: 0.375rem 0 0 0.375rem;
+            font-size: 1rem;
+        }
+        
+        .search-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .search-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-card {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.2s;
+            background-color: white;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .category-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .faq-container {
+            margin-bottom: 2rem;
+        }
+        
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .contact-card {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            background-color: white;
+        }
+        
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .contact-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-info {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="../index.html" class="brand">HealthInsightToday</a>
+            <div class="user-menu">
+                <div class="notifications">
+                    <span class="notifications-count">3</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.36 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.63 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">JS</div>
+                    <span>John Smith</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" fill="currentColor"/>
+                    </svg>
+                    <span>Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="specialists.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="currentColor"/>
+                    </svg>
+                    <span>Specialists</span>
+                </a>
+            </li>
+            <li>
+                <a href="insights.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z" fill="currentColor"/>
+                    </svg>
+                    <span>Insights</span>
+                </a>
+            </li>
+            <li>
+                <a href="diet.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 9H9V2H7V9H5V2H3V9C3 11.12 4.66 12.84 6.75 12.97V22H9.25V12.97C11.34 12.84 13 11.12 13 9V2H11V9ZM16 6V14H18.5V22H21V2C18.24 2 16 4.24 16 6Z" fill="currentColor"/>
+                    </svg>
+                    <span>Diet</span>
+                </a>
+            </li>
+            <li>
+                <a href="shopping.html">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+                    </svg>
+                    <span>Shopping</span>
+                </a>
+            </li>
+            <li>
+                <a href="help.html" class="active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.89 11.1C13.58 10.28 14 9.19 14 8C14 5.79 12.21 4 10 4V6C11.1 6 12 6.9 12 8C12 8.55 11.78 9.05 11.43 9.43L9.57 11.29C9.22 11.64 9 12.14 9 12.69V16H11V13.41L12.89 11.1ZM11 18H13V20H11V18Z" fill="currentColor"/>
+                    </svg>
+                    <span>Help</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1 class="page-title">Help Center</h1>
+            <p class="subtitle">Find answers to common questions and get support</p>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search for help topics...">
+            <button class="search-btn">Search</button>
+        </div>
+        
+        <div class="help-categories">
+            <div class="category-card">
+                <div class="category-icon">📊</div>
+                <h3 class="category-title">Understanding Reports</h3>
+                <p>Learn how to read and interpret your health reports and metrics</p>
+                <a href="#" class="btn btn-outline" style="margin-top: 1rem;">View Guides</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">📱</div>
+                <h3 class="category-title">Using the Platform</h3>
+                <p>Get help with navigating and using the HealthInsightToday features</p>
+                <a href="#" class="btn btn-outline" style="margin-top: 1rem;">View Tutorials</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🔒</div>
+                <h3 class="category-title">Privacy & Security</h3>
+                <p>Learn about how we protect your health data and privacy</p>
+                <a href="#" class="btn btn-outline" style="margin-top: 1rem;">Read Policies</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">💳</div>
+                <h3 class="category-title">Billing & Subscriptions</h3>
+                <p>Manage your subscription, billing information, and payment methods</p>
+                <a href="#" class="btn btn-outline" style="margin-top: 1rem;">View Options</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🩺</div>
+                <h3 class="category-title">Health Terms Glossary</h3>
+                <p>Find definitions for common medical terms used in your reports</p>
+                <a href="#" class="btn btn-outline" style="margin-top: 1rem;">Open Glossary</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">📞</div>
+                <h3 class="category-title">Contact Support</h3>
+                <p>Get in touch with our support team for personalized assistance</p>
+                <a href="#" class="btn btn-outline" style="margin-top: 1rem;">Contact Us</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How accurate is the AI analysis of my health reports?</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our AI system has been trained on millions of health reports and verified by medical professionals. It achieves over 98% accuracy in data extraction and follows established medical guidelines for analysis. However, all insights should be discussed with your healthcare provider, as our service is not intended to replace professional medical advice.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How is my health data protected?</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We take data security very seriously. Your health information is encrypted both in transit and at rest using industry-standard protocols. We are compliant with HIPAA, GDPR, and India's PDPB regulations. You can read more about our security measures in our <a href="../privacy.html">Privacy Policy</a>.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I upload reports from any lab or hospital?</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our platform is designed to work with reports from almost any lab or healthcare provider. We support PDF uploads and image formats (JPG, PNG). Our AI system can extract data from varying report formats. If you encounter any issues with a specific report format, please contact our support team for assistance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I connect with specialists recommended on the platform?</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>When you receive specialist recommendations in your insights, you can view their profiles and contact information in the Specialists section. From there, you can book appointments directly through our platform with participating providers, or get their contact details to schedule appointments through their offices. All specialists in our network are verified healthcare professionals.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I share my health data with my doctor?</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can easily share your health data and insights with your healthcare providers. In your Reports or Insights sections, look for the "Share" option, which allows you to generate a secure link or PDF report that you can send to your doctor. You control who has access to your data, and sharing permissions can be revoked at any time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem;">Contact Support</h2>
+            
+            <div class="contact-options">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="contact-title">Email Support</h3>
+                    <p class="contact-info">Our support team typically responds within 24 hours on business days.</p>
+                    <a href="mailto:support@healthinsighttoday.com" class="btn btn-primary">Email Us</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2c0-4.97-4.03-9-9-9v2c3.87 0 7 3.13 7 7zm-4 0h2c0-2.76-2.24-5-5-5v2c1.66 0 3 1.34 3 3z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="contact-title">Phone Support</h3>
+                    <p class="contact-info">Available Monday-Friday, 9am-5pm IST / 10:30pm-6:30am EST</p>
+                    <a href="tel:+918888888888" class="btn btn-primary">Call Us</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="contact-title">Live Chat</h3>
+                    <p class="contact-info">Get immediate assistance from our support agents through chat.</p>
+                    <a href="#" class="btn btn-primary">Start Chat</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Toggle FAQ answers
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                
+                answer.style.display = isOpen ? 'none' : 'block';
+                
+                // Update the arrow icon
+                const arrow = question.querySelector('svg');
+                arrow.style.transform = isOpen ? 'rotate(0)' : 'rotate(180deg)';
+            });
+        });
+        
+        // Initialize with all answers hidden
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
